@@ -1,0 +1,36 @@
+Se você tiver o xampp instalado, não tem segredo pra fazer funcionar, coloca o apache pra rodar e o mysql pra funcionar também.
+
+O projeto tem que ser acessado pelo Admin do lado do apache, se não, o PHP não vai rodar, e ele é praticamente a estrutura inteira do projeto.
+
+Na pasta do projeto, seguindo o caminho app\config.php, verifica se o host e a porta condizem com os configurados no seu xampp. 
+Provável que esteja, já que eu coloquei os valores padrões, então não esquenta muito sua cabeça com isso.
+
+A página inicial do projeto tem informações apenas para o cadastro do representante da empresa, como ainda não foi abordado sobre como funcionaria o cadastro
+do corpo administrativo da FATEC, então eu coloquei o usuário de administrador como: admin.teste@localhost.test e a senha é gerada automaticamente na execução do código.
+
+No xampp, vai em config e mete isso aqui no php.ini, se não corre o risco do programa der erro.
+file_uploads=On
+upload_max_filesize=10M
+post_max_size=12M
+
+
+Fora do htdocs, vai precisar criar uma pasta com as seguinte estrutura:
+
+escritorio-projetos-arquivos\
+
+	escopos\
+
+	convenios\
+
+	acompanhamento\
+
+A fim de registrar algumas informações que o php vai fornecer.
+
+
+Grande parte dos programas em php e as linhas de código no meio do html são puramente pro banco e não devem interferir na parte do css,
+pode mexer sem medo, qualquer dúvida, conversa comigo.
+
+Mesma coisa com o backend, qualquer coisa de interatividade não deve alterar no funcionamento do php, mas se ainda tiver medo,
+fala comigo.
+
+--João Victor
