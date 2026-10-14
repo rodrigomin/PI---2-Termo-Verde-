@@ -57,13 +57,19 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escritório de Projetos - Login</title>
+    <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
+    <link rel="stylesheet" href="./styles/index.css?v=<?php echo filemtime(__DIR__ . '/styles/index.css'); ?>"/>
+
+
 </head>
 <body>
     <main>
-        <section>
-            <h1>Bem Vindo ao</h1>
-            <h1>Escritório de Projetos</h1>
-            <p>Centro Paula Souza</p>
+        <section id='header'>
+            <?php include_once __DIR__ . '/components/header.php'; ?>
+        </section>
+
+        <section id='bem-vindo'>
+            <?php include_once __DIR__ . '/components/hero.php'; ?>
         </section>
 
         <section>
