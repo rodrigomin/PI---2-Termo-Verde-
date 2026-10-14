@@ -48,7 +48,7 @@ try {
 } catch (Throwable $erro) {
     error_log('Erro no login ou banco de dados: ' . $erro->getMessage());
     http_response_code(503);
-    $erroBanco = 'Não foi possível acessar o banco de dados. Verifique o MySQL e as configurações em app/config.php.';
+    $erroBanco = 'Erro real: ' . $erro->getMessage();
 }
 ?>
 <!DOCTYPE html>
@@ -62,74 +62,69 @@ try {
 
 
 </head>
-<body>
+<body style='max-width: 100dvw; max-height: 100dvh;'>
     <main>
-        <section id='header'>
-            <?php include_once __DIR__ . '/components/header.php'; ?>
-        </section>
+        <section class='flex flex-row w-full h-full'>
 
-        <section id='bem-vindo'>
-            <?php include_once __DIR__ . '/components/hero.php'; ?>
-        </section>
+            <div class='flex flex-1 flex-col justify-center items-center w-full h-full'>
+                <?php include_once __DIR__ . '/components/hero.php'; ?>
+            </div>
 
-        <section>
-            <h2>Fazer Login</h2>
+            <div class='flex flex-1 flex-col justify-center items-center w-full text-center' style='height: 100dvh;'>
+                <h2>Fazer Login</h2>
 
-            <?php if ($erroBanco !== ''): ?>
-                <p role="alert"><?= ep_e($erroBanco) ?></p>
-            <?php else: ?>
-                <?php if ($credenciaisAdminTeste !== null): ?>
-                    <p role="status">Administrador de teste criado para este banco local.</p>
-                    <p>E-mail: <strong><?= ep_e($credenciaisAdminTeste['email']) ?></strong></p>
-                    <p>Senha temporária: <strong><?= ep_e($credenciaisAdminTeste['senha']) ?></strong></p>
-                    <p>Anote a senha agora: ela não será exibida novamente.</p>
+                <?php if ($erroBanco !== ''): ?>
+                    <p role="alert"><?= ep_e($erroBanco) ?></p>
+                <?php else: ?>
+                    <?php if ($credenciaisAdminTeste !== null): ?>
+                        <p role="status">Administrador de teste criado para este banco local.</p>
+                        <p>E-mail: <strong><?= ep_e($credenciaisAdminTeste['email']) ?></strong></p>
+                        <p>Senha temporária: <strong><?= ep_e($credenciaisAdminTeste['senha']) ?></strong></p>
+                        <p>Anote a senha agora: ela não será exibida novamente.</p>
+                    <?php endif; ?>
+
+                    <?php if ($erroLogin !== ''): ?>
+                        <p role="alert"><?= ep_e($erroLogin) ?></p>
+                    <?php endif; ?>
+
+                    <form action="index.php" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
+
+                        <div>
+                            <label for="email">E-mail</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Digite seu e-mail"
+                                value="<?= ep_e($email) ?>"
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+
+                        <div>
+                            <label for="senha">Senha</label>
+                            <input
+                                type="password"
+                                id="senha"
+                                name="senha"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                            >
+                        </div>
+
+                        <p><a href="#">Esqueci a senha</a></p>
+                        <button type="submit">Fazer Login</button>
+                    </form>
                 <?php endif; ?>
 
-                <?php if ($erroLogin !== ''): ?>
-                    <p role="alert"><?= ep_e($erroLogin) ?></p>
-                <?php endif; ?>
-
-                <form action="index.php" method="post">
-                    <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
-
-                    <div>
-                        <label for="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Digite seu e-mail"
-                            value="<?= ep_e($email) ?>"
-                            autocomplete="username"
-                            required
-                        >
-                    </div>
-
-                    <div>
-                        <label for="senha">Senha</label>
-                        <input
-                            type="password"
-                            id="senha"
-                            name="senha"
-                            placeholder="Digite sua senha"
-                            autocomplete="current-password"
-                            required
-                        >
-                    </div>
-
-                    <p><a href="#">Esqueci a senha</a></p>
-                    <button type="submit">Fazer Login</button>
-                </form>
-            <?php endif; ?>
-
-            <p><a href="cadastro.php">Cadastre-se aqui</a></p>
+                <p><a href="cadastro.php">Cadastre-se aqui</a></p>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>Governo do Estado de São Paulo</p>
-        <p>Centro Paula Souza</p>
-        <p>Fundação Shunji Nishimura de Tecnologia</p>
-    </footer>
+    
 </body>
 </html>
