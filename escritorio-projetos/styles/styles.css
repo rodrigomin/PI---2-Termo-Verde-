@@ -172,6 +172,10 @@
     font-weight: 700;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .text-primary {
     color: var(--thirdiary-text);
 }
@@ -310,7 +314,7 @@ select {
 }
 
 .button {
-    padding: 20px 50px;
+    padding: 15px 100px;
     border-radius: 1rem;
     color: white;
     font-weight: 600;
@@ -345,3 +349,4 @@ select {
     opacity: 1 !important;
     transform: translate(0,0);
 }
+
