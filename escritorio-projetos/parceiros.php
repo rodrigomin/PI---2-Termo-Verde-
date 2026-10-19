@@ -54,23 +54,20 @@ function ep_url_parceiros(int $pagina, string $pesquisa): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banco de Parceiros - Escritório de Projetos</title>
+    <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
+    <link rel="stylesheet" href="./styles/parceiros.css?v=<?php echo filemtime(__DIR__ . '/styles/parceiros.css'); ?>"/>
+    <script type="module" src='./js/index.js'> </script>
 </head>
 <body>
-    <header>
-        <h1>Escritório de Projetos</h1>
-    </header>
 
-    <nav aria-label="Menu principal">
-        <ul>
-            <li><a href="visao_geral.php">Visão Geral</a></li>
-            <li><a href="cadastro_demanda.php">Cadastro</a></li>
-            <li><a href="parceiros.php" aria-current="page">Parceiros</a></li>
-            <li><a href="envio_demandas.php">Envio Demandas</a></li>
-        </ul>
-        <p><a href="#">Conta</a></p>
-    </nav>
 
-    <main>
+    <section class='flex flex-row w-full'>    
+    <div class='flex flex-col justify-start items-start h-full' style='height: 100dvh;'>
+            <?php include_once __DIR__ . '/components/nav.php'; ?>
+        </div>
+        <div class='flex flex-col' style='width: 100%;'>
+            <?php include_once __DIR__ . '/components/header.php'; ?>
+        <main>
         <section>
             <h2>Banco de Parceiros</h2>
 
@@ -142,6 +139,8 @@ function ep_url_parceiros(int $pagina, string $pesquisa): string
                 </nav>
             <?php endif; ?>
         <?php endif; ?>
-    </main>
+        </main>
+        </div>
+    </section>
 </body>
 </html>

@@ -6,11 +6,6 @@
  */
 function ep_inicializar_banco(): bool
 {
-    static $inicializado = false;
-    if ($inicializado) {
-        return false;
-    }
-
     $config = require __DIR__ . '/config.php';
     $nome = $config['banco'];
     if (!preg_match('/^[a-zA-Z0-9_]+$/', $nome)) {
@@ -34,6 +29,12 @@ function ep_inicializar_banco(): bool
     $consulta->execute([$nome]);
     $foiCriado = (int) $consulta->fetchColumn() === 0;
 
+    if (!$foiCriado) {
+        $servidor->exec('USE `' . $nome . '`');
+        ep_verificar_estrutura($servidor);
+        return false;
+    }
+
     $servidor->exec(
         'CREATE DATABASE IF NOT EXISTS `' . $nome . '` '
         . 'CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
@@ -44,7 +45,6 @@ function ep_inicializar_banco(): bool
     ep_executar_ddl($servidor, __DIR__ . '/../database/01_complementos.sql');
     ep_verificar_estrutura($servidor);
 
-    $inicializado = true;
     return $foiCriado;
 }
 

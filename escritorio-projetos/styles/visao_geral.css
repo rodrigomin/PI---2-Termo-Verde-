@@ -1,0 +1,127 @@
+.overlay {
+    background: linear-gradient(45deg, #3a0404bb, #1f121258) no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index: 1;
+    position: absolute;
+}
+
+.video-hero {
+    position:absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.usr {
+    background: url('../src/public/svgs/user-solid-full-2.svg') 0px 15px no-repeat;
+}
+
+
+.grid-kpi {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 25px;
+}
+    
+.status-d {
+    grid-column: span 2 / span 2;
+    grid-row: span 4 / span 4;
+}
+
+.deman-curso {
+    grid-column: span 4 / span 4;
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+}
+
+.deman-cadastr {
+    grid-row: span 2 / span 2;
+    grid-column-start: 7;
+}
+
+.emp-cadastr {
+    grid-row: span 2 / span 2;
+    grid-column-start: 8;
+}
+
+.triagem {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 3;
+}
+
+.execucao {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 5;
+    grid-row-start: 3;
+}
+
+.submetidas {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-column-start: 7;
+    grid-row-start: 3;
+}
+    
+.container-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 0.5rem;
+}
+
+.title-kpi {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.title-kpi img {
+    width: 20px;
+    aspect-ratio: 1/1;
+}
+
+.label-circle {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    text-align: center;
+}
+
+.label-circle::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    aspect-ratio: 2/1;
+    margin-right: 6px;
+    font-weight: 600;
+}
+
+.sub::before {
+    background:  rgb(225, 255, 0);
+}
+
+.exec::before {
+    background: hsla(0, 100%, 50%, 1);
+}
+
+.tria::before {
+    background: rgb(43, 74, 249);
+}
+
+.concl::before {
+    background: rgb(0, 255, 68);
+}
