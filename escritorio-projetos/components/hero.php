@@ -7,7 +7,7 @@
             </div>
 
             <div class='flex flex-col justify-center items-center w-full h-full'>
-                <div class='flex flex-col justify-start items-start'>
+                <div class='flex flex-col justify-start items-start cima observado-me'>
                     <h1 class='text-white text-white light' style='font-size: 1.5rem;'>Bem vindo(a) ao...</h1>
                     <p class='title text-white' style='line-height: 0.6; letter-spacing: 5px; margin-top: 2rem'> <b> ESCRITÓRIO <br> <span class='subtitle'>DE PROJETOS</span> </b> </p>
                 </div>

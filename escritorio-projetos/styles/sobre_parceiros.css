@@ -1,0 +1,38 @@
+.representante {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.email {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.telefone {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.representante::before {
+    content: '';
+    background: url('../src/public/svgs/circle-user-solid-full_black.svg') no-repeat right;
+    width: 25px;
+    height: 25px;
+}
+
+.email::before {
+    content: '';
+    background: url('../src/public/svgs/envelope-solid-full_black.svg') no-repeat right;
+    width: 25px;
+    height: 25px;
+}
+
+.telefone::before {
+    content: '';
+    background: url('../src/public/svgs/phone-solid-full.svg') no-repeat right;
+    width: 25px;
+    height: 25px;
+}

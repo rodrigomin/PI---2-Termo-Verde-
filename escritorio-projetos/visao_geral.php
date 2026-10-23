@@ -108,7 +108,7 @@ function ep_data_painel($data): string
     <title>Visão Geral - Escritório de Projetos</title>
     <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
     <link rel="stylesheet" href="./styles/visao_geral.css?v=<?php echo filemtime(__DIR__ . '/styles/visao_geral.css'); ?>"/>
-    <script type="module" src='./js/index.js'> </script>
+    <script type="module" src='./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>'> </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src='./js/visao_geral.js?v=<?php echo filemtime(__DIR__ . '/js/visao_geral.js'); ?>'> </script>
 </head>
@@ -286,10 +286,10 @@ function ep_data_painel($data): string
                             <p role="alert"><?= ep_e($erroFiltro) ?></p>
                         <?php endif; ?>
 
-                        <form action="visao_geral.php" method="get">
+                        <form action="visao_geral.php" method="get" style="margin-top: 25px;">
                             <div class="flex flex-row w-full justify-between" style="gap: 20px">
                                 <div class="flex flex-col" style="width: 50%;">
-                                    <label for="pesquisa">Pesquisar Demanda por Nome</label>
+                                    <label class="subtitle" for="pesquisa">Pesquisar Demanda por Nome</label>
                                     <input
                                         type="search"
                                         id="pesquisa"
@@ -300,8 +300,10 @@ function ep_data_painel($data): string
                                     >
                                 </div>
 
+                                <button type="submit" class='button interactive'>Pesquisar</button>
+
                                 <div>
-                                    <label for="status">Filtrar por</label>
+                                    <label class="subtitle" for="status">Filtrar por</label>
                                     <select id="status" name="status">
                                         <option value="">Todos os status</option>
                                         <?php foreach ($statusDisponiveis as $status): ?>
@@ -313,41 +315,78 @@ function ep_data_painel($data): string
                                     </select>
                                 </div>
                             </div>
-
-                            <button type="submit" class='button'>Pesquisar</button>
                         </form>
 
-                        <table>
+                        <table style="border-spacing: 0 25px;" class="w-full h-full" style="margin-top: 50px;">
                             <thead>
-                                <tr>
+                                <tr class="text-primary subtitle">
                                     <th scope="col">Empresa</th>
+                                    <th class="line-separator"></th>
                                     <th scope="col">Título e Descrição</th>
+                                    <th class="line-separator"></th>
                                     <th scope="col">Data</th>
+                                    <th class="line-separator"></th>
                                     <th scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (empty($demandas)): ?>
-                                    <tr>
-                                        <td colspan="4">Nenhuma demanda encontrada.</td>
+                                    <!-- <div class="flex justify-center items-center w-full">
+                                        <td class="text-center" colspan="8" style="padding: 50px 0;">Nenhuma demanda encontrada.</td>
+                                    </div>
+                                    -->
+
+                                    <?php 
+                                        for($i = 0; $i < 10; $i++):
+                                    ?>
+                                    
+                                    
+                                    <tr class="interactive text-center" style="height: 120px; background-color: #F2F2F2">
+                                        <td colspan="2" class="text-center text-primary bold subtitle" style="border-radius: 10px 0 0 10px;"> EMPRESA X</td>
+                                        <td colspan="2" class="text-center"> 
+                                            <div> 
+                                                <h3 class="subtitle semibold"> Titulo do Projeto </h3>
+                                                <p class="light text-xl"> Descrição do Problema </p>
+                                            </div>
+                                        </td>
+                                        <td colspan="2" class="text-center semibold subtitle"> 01/12/30 </td>
+                                        <td colspan="2" class="text-center" style="border-radius: 0 10px 10px 0;"> <p class="bold subtitle" style="color: red"> EM EXECUÇÃO </p> </td>
                                     </tr>
+
+                                    <?php endfor; ?>
+
+
                                 <?php else: ?>
                                     <?php foreach ($demandas as $demanda): ?>
-                                        <tr>
-                                            <td>
-                                                <?= ep_e($demanda['nome_fantasia'] ?? 'Empresa não informada') ?>
+                                        <tr class="interactive" style="height: 120px; background-color: #F2F2F2">
+                                            <td colspan="2" class="text-center text-primary bold subtitle" style="border-radius: 10px 0 0 10px;"> <?= ep_e($demanda['nome_fantasia'] ?? 'Empresa não informada') ?> </td>
+                                            <td colspan="2" class="text-center"> 
+                                                <div> 
+                                                    <h3 class="subtitle semibold"> <?= ep_e($demanda['título'] ?? '') ?> </h3>
+                                                    <p class="light text-xl"> <?= ep_e($demanda['descricão_problema'] ?? '') ?> </p>
+                                                </div>
                                             </td>
-                                            <td>
-                                                <strong><?= ep_e($demanda['título'] ?? '') ?></strong>
-                                                <p><?= ep_e($demanda['descricão_problema'] ?? '') ?></p>
-                                            </td>
-                                            <td><?= ep_e(ep_data_painel($demanda['data_cadastro'] ?? null)) ?></td>
-                                            <td><?= ep_e($demanda['status'] ?: 'Sem status') ?></td>
+                                            <td colspan="2" class="text-center semibold subtitle"> <?= ep_e(ep_data_painel($demanda['data_cadastro'] ?? null)) ?> </td>
+                                            <td colspan="2" class="text-center" style="border-radius: 0 10px 10px 0;"> <p class="bold subtitle" style="color: red"> <?= ep_e($demanda['status'] ?: 'Sem status') ?> </p> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
+
+                        <nav class="flex flex-row items-center justify-center" aria-label="Paginação das demandas" style="gap: 25px; margin-top: 25px">
+                            <a class="flex flex-col items-center interactive">
+                                <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+                                </svg>
+                            </a>
+                            <a class="flex flex-col items-center text-center subtitle underline"> 0 </a>
+                            <a class="flex flex-col items-center interactive">
+                                <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                    <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
+                                </svg>
+                            </a>
+                        </nav>
 
                         <?php if ($totalPaginas > 1): ?>
                             <nav aria-label="Paginação das demandas">

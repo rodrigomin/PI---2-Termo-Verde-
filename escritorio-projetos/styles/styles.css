@@ -15,6 +15,7 @@
     --secondary-text: white;
     --thirdiary-text: #B71111;
     --thirdiary-bg-color: #D9D9D9;
+    --thirdiary-bg-color: #B71111;
 }
 
 .bg-1 {
@@ -22,6 +23,9 @@
 }
 .bg-2 {
     background-color: var(--secondary-bg-color);
+}
+.bg-3 {
+    background-color: var(--thirdiary-bg-color)
 }
 
 /* WIDTHS & HEIGHTS */
@@ -172,6 +176,10 @@
     font-weight: 700;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .text-primary {
     color: var(--thirdiary-text);
 }
@@ -310,13 +318,24 @@ select {
 }
 
 .button {
-    padding: 20px 50px;
-    border-radius: 1rem;
+    padding: 18px 50px;
+    border-radius: 0.5rem;
     color: white;
     font-weight: 600;
     background-color: #B71111;
-
+    text-align: center;
 }
+
+.button2 {
+    padding: 15px 50px;
+    border: 2px #B71111 solid;
+    border-radius: 0.5rem;
+    color: #B71111;
+    font-weight: 600;
+    background-color: white;
+    outline: none;
+}
+
 
 /* PARA OBSERVER */
 
@@ -344,4 +363,29 @@ select {
 .observado-me.show {
     opacity: 1 !important;
     transform: translate(0,0);
+}
+
+/* KPIS */
+
+
+.title-kpi {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.title-kpi img {
+    width: 20px;
+    aspect-ratio: 1/1;
+}
+
+
+td {
+    text-align: center !important;
+}
+
+.hidden {
+    display: none;
 }
