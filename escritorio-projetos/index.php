@@ -59,7 +59,7 @@ try {
     <title>Escritório de Projetos - Login</title>
     <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
     <link rel="stylesheet" href="./styles/index.css?v=<?php echo filemtime(__DIR__ . '/styles/index.css'); ?>"/>
-
+    <script type="module" src='./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>'> </script>
 
 </head>
 <body style='max-width: 100dvw; max-height: 100dvh;'>

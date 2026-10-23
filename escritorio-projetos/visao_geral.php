@@ -108,7 +108,7 @@ function ep_data_painel($data): string
     <title>Visão Geral - Escritório de Projetos</title>
     <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
     <link rel="stylesheet" href="./styles/visao_geral.css?v=<?php echo filemtime(__DIR__ . '/styles/visao_geral.css'); ?>"/>
-    <script type="module" src='./js/index.js'> </script>
+    <script type="module" src='./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>'> </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src='./js/visao_geral.js?v=<?php echo filemtime(__DIR__ . '/js/visao_geral.js'); ?>'> </script>
 </head>
@@ -341,7 +341,7 @@ function ep_data_painel($data): string
                                     ?>
                                     
                                     
-                                    <tr class="interactive" style="height: 120px; background-color: #F2F2F2">
+                                    <tr class="interactive text-center" style="height: 120px; background-color: #F2F2F2">
                                         <td colspan="2" class="text-center text-primary bold subtitle" style="border-radius: 10px 0 0 10px;"> EMPRESA X</td>
                                         <td colspan="2" class="text-center"> 
                                             <div> 
@@ -386,7 +386,7 @@ function ep_data_painel($data): string
                                     <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
                                 </svg>
                             </a>
-                            </nav>
+                        </nav>
 
                         <?php if ($totalPaginas > 1): ?>
                             <nav aria-label="Paginação das demandas">
