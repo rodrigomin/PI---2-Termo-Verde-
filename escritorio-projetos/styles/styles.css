@@ -150,6 +150,10 @@
     font-size: 1.125rem;
 }
 
+.text-table {
+    font-size: 14px;
+}
+
 .text-white {
     color: var(--secondary-text);
 }
@@ -207,7 +211,8 @@ button {
 /* outros */
 
 .line-separator {
-    width: 3px;
+    max-width: 1px;
+    min-width: 1px;
     height: 50px;
     background-color: var(--secondary-bg-color);
 }
@@ -323,7 +328,7 @@ select {
 }
 
 .button {
-    padding: 18px 50px;
+    padding: 18px 30px;
     border-radius: 0.5rem;
     color: white;
     font-weight: 600;
@@ -332,7 +337,7 @@ select {
 }
 
 .button2 {
-    padding: 15px 50px;
+    padding: 15px 30px;
     border: 2px #B71111 solid;
     border-radius: 0.5rem;
     color: #B71111;

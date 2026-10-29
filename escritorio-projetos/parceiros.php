@@ -104,16 +104,17 @@ function ep_url_parceiros(int $pagina, string $pesquisa): string
                             <p class="flex text-center w-full justify-center items-center semibold text-gray">Nenhum parceiro encontrado.</p>
                         <?php else: ?>
                             <?php foreach ($parceiros as $parceiro): ?>
-                                <article class="flex flex-row p-8 parceiros-container observado-me cima">
-                                    <div class="flex flex-col h-full items-between">
-                                        <header class="flex flex-row" style="gap: 12px">
-                                            <h3 class="text-primary"><?= ep_e($parceiro['nome_fantasia'] ?: ($parceiro['razão_social'] ?: 'Nome não informado')) ?></h3>
-                                            <span> • </span>
-                                            <p class="light">CNPJ: <?= ep_e($parceiro['CNPJ'] ?: 'Não informado') ?></p>
-                                        </header>
+                                <article class="flex flex-row p-8 parceiros-container observado-me cima justify-between">
+                                    <div class="flex flex-row w-full justify-between">
+                                        <div class="flex flex-col h-full items-between">
+                                            <header class="flex flex-row" style="gap: 12px">
+                                                <h3 class="text-primary"><?= ep_e($parceiro['nome_fantasia'] ?: ($parceiro['razão_social'] ?: 'Nome não informado')) ?></h3>
+                                                <span> • </span>
+                                                <p class="light">CNPJ: <?= ep_e($parceiro['CNPJ'] ?: 'Não informado') ?></p>
+                                            </header>
 
-                                    <p class="h-full" style="height: 100px; align-content: center"><?= ep_e($parceiro['descricao'] ?: 'Descrição não informada.') ?></p>
-
+                                        <p class="h-full" style="height: 100px; margin-top: 12px"><?= ep_e($parceiro['descricao'] ?: 'Descrição não informada.') ?></p>
+                                    </div>
                                     <nav class="flex flex-col" style="gap: 10px" aria-label="Ações do parceiro">
                                         <a class="button interactive" href="sobre_parceiro.php?id=<?= (int) $parceiro['empresa_id'] ?>">Ver Mais</a>
                                         <a class="button2 interactive" href="editar_parceiro.php?id=<?= (int) $parceiro['empresa_id'] ?>">Editar Parceiro</a>
@@ -124,28 +125,30 @@ function ep_url_parceiros(int $pagina, string $pesquisa): string
                     </section>
                     <?php if ($totalPaginas > 1): ?>
                         <nav aria-label="Paginação dos parceiros" class="flex flex-row items-center justify-center" style="gap: 25px; margin: 25px 0">
-                            <?php if ($paginaAtual > 1): ?>
-                                <a class="flex flex-col items-center interactive" href="<?= ep_e(ep_url_parceiros($paginaAtual - 1, $pesquisa)) ?>">
-                                    <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                        <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
-                                    </svg>
-                                </a>
-                            <?php endif; ?>
+                            <div class="relative flex flex-row p-6 items-center" style="gap: 20px">
+                                <?php if ($paginaAtual > 1): ?>
+                                    <a href="<?= ep_e(ep_url_parceiros($paginaAtual - 1, $pesquisa)) ?>"  class="flex absolute flex-col items-center interactive" style="left: -20%">
+                                        <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+                                        </svg>
+                                    </a>
+                                <?php endif; ?>
 
-                            <?php for ($pagina = 1; $pagina <= $totalPaginas; $pagina++): ?>
-                                <a  class="flex flex-col items-center text-center subtitle underline"
-                                    href="<?= ep_e(ep_url_parceiros($pagina, $pesquisa)) ?>"
-                                    <?= $pagina === $paginaAtual ? 'aria-current="page"' : '' ?>
-                                ><?= $pagina ?></a>
-                            <?php endfor; ?>
+                                <?php for ($pagina = 1; $pagina <= $totalPaginas; $pagina++): ?>
+                                    <a  class="flex flex-col items-center text-center subtitle underline"
+                                        href="<?= ep_e(ep_url_parceiros($pagina, $pesquisa)) ?>"
+                                        <?= $pagina === $paginaAtual ? 'aria-current="page"' : '' ?>
+                                    ><?= $pagina ?></a>
+                                <?php endfor; ?>
 
-                            <?php if ($paginaAtual < $totalPaginas): ?>
-                                <a class="flex flex-col items-center interactive" href="<?= ep_e(ep_url_parceiros($paginaAtual + 1, $pesquisa)) ?>">
-                                    <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                        <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
-                                    </svg>
-                                </a>
-                            <?php endif; ?>
+                                <?php if ($paginaAtual < $totalPaginas): ?>
+                                    <a href="<?= ep_e(ep_url_parceiros($paginaAtual + 1, $pesquisa)) ?>" class="flex absolute flex-col items-center interactive" style="right: -20%">
+                                        <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
+                                        </svg>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
                         </nav>
                     <?php endif; ?>
                 <?php endif; ?>

@@ -1,45 +1,82 @@
 
+const allStatus = document.querySelectorAll('.status');
+const statusMain = document.getElementById('status');
+
 var data = [
     {
-        value: 100,
+        value: 0,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Em Excecução"
     },
     {
-        value: 50,
+        value: 0,
         color: "#4658bf",
         highlight: "#5a66d3",
-        label: "Green"
+        label: "Em Triagem"
     },
     {
-        value: 100,
+        value: 0,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+        label: "Submetidos"
     },
     {
-        value: 100,
+        value: 0,
         color: "#72fd5c",
         highlight: "#379f27",
-        label: "Yellow"
+        label: "Concluído"
+    },
+    {
+        value: 0,
+        color: "#c3c3c3",
+        highlight: "#d9d9d9",
+        label: "Sem Status"
     }
 ];
 
 var data2 = [
     {
-        value: 100,
+        value: 0,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Em Execução"
     },
     {
-        value: 140,
+        value: statusMain.dataset.total,
         color: "#82181a",
         highlight: "#82181a",
-        label: "Blue"
+        label: "Não em execução"
     }
 ];
+
+
+allStatus.forEach((status) => {
+    let nome = status.dataset.name;
+    let qnt = status.dataset.qnt;
+
+    switch (nome) {
+        case "Em Execução":
+            data[0].value = qnt;
+            data2[0].value = qnt;
+            break;
+        case "Em Triagem":
+            data[1].value = qnt;
+            break;
+        case "Submetidos":
+            data[2].value = qnt;
+            break;
+        case "Concluido":
+            data[3].value = qnt;
+            break;
+        case "Sem status":
+            data[4].value = qnt;
+            break;
+        default:
+            console.log(nome, ": Não está presente na possibilidade de nomes do visao_geral.js")
+    }
+})
+
 
 var ctx = document.getElementById("chart").getContext("2d");
 new Chart(ctx, {
@@ -109,29 +146,35 @@ new Chart(semiCircle, {
 
 const demandasCadastradas = document.getElementById('demandasCadastradas');
 
-if (demandasCadastradas && !demandasCadastradas.classList.contains('show')) {
-    const final = 500;
-    
-    const tempoMinimo = 1;
-    const tempoMaximo = 1000;
+const kpis = document.querySelectorAll('.kpi')
 
-    function atualizarContador() {
-        let atual = Number(demandasCadastradas.innerText);
+kpis.forEach((kpi) => {
+    if (kpi && !kpi.classList.contains('show')) {
+        const final = kpi.innerText;
+        let inicial = 0;
 
-        if (atual < final) {
-            atual += 1;
-            demandasCadastradas.innerText = atual;
-            
-            let progresso = atual / final; 
-            
-            let tempo = tempoMinimo + (tempoMaximo - tempoMinimo) * (progresso ** 99); 
+        const tempoMinimo = 1;
+        const tempoMaximo = 1000;
 
-            //console.log(`Valor: ${atual} | Próximo passo em: ${tempo.toFixed(0)}ms`);
+        function atualizarContador() {
+            let atual = Number(inicial);
 
-            setTimeout(atualizarContador, tempo);
+            if (atual < final) {
+                inicial += 1;
+                kpi.innerText = atual + 1;
+
+                let progresso = atual / final; 
+
+                let tempo = tempoMinimo + (tempoMaximo - tempoMinimo) * (progresso ** 2); 
+
+                //console.log(`Valor: ${atual} | Próximo passo em: ${tempo.toFixed(0)}ms`);
+
+                setTimeout(atualizarContador, tempo);
+            }
         }
-    }
 
-    // Inicia o processo
-    atualizarContador();
-}
+        // Inicia o processo
+        atualizarContador();
+    }
+})
+

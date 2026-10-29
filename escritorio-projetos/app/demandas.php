@@ -164,7 +164,7 @@ function ep_listar_demandas_visao_geral(
     $inicio = ($pagina - 1) * $porPagina;
     [$onde, $parametros] = ep_filtros_visao_geral($pesquisa, $status, $empresaId);
     $sql = 'SELECT p.`proposta_id`, p.`título`, p.`descricão_problema`,
-                   p.`status`, p.`data_cadastro`, e.`nome_fantasia`
+                   p.`status`, p.`data_cadastro`, e.`razão_social`, e.`nome_fantasia`
             FROM `Propostas_Externas` p
             LEFT JOIN `Empresas_Parceiras` e ON e.`empresa_id` = p.`empresa_id`'
         . $onde

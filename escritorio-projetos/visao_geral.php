@@ -185,9 +185,19 @@ function ep_data_painel($data): string
                                         </div>
                                         <!--<p>Nenhuma demanda cadastrada nos últimos 30 dias.</p> -->
                                     <?php else: ?>
-                                        <ul>
+                                        <div class="flex flex-col">
+                                        <canvas class="circle-box" id='chart'></canvas>
+
+                                        <div style='gap: 20px; display:grid; grid-template-columns: repeat(2, 1fr); align-items: center; justify-items: center; width: 100% '>
+                                            <p class="label-circle sub"> Submetidos </p>
+                                            <p class="label-circle exec"> Em Execução </p>
+                                            <p class="label-circle tria"> Em Triagem </p>
+                                            <p class="label-circle concl"> Concluído </p>
+                                        </div>
+                                        </div>
+                                        <ul id='status' data-total="<?= ep_numero_painel($indicadores['total']) ?>">
                                             <?php foreach ($statusUltimoMes as $item): ?>
-                                                <li>
+                                                <li class="hidden status" data-name="<?= ep_e($item['nome']) ?>" data-qnt="<?= ep_numero_painel($item['quantidade'])?>">
                                                     <?= ep_e($item['nome']) ?>:
                                                     <?= ep_numero_painel($item['quantidade']) ?>
                                                     (<?= ep_percentual_painel($item['percentual']) ?>)
@@ -237,7 +247,7 @@ function ep_data_painel($data): string
                                     <div class="line-separator-w"></div>
 
                                     <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title" id='demandasCadastradas'><?= ep_numero_painel($indicadores['total']) ?></span> <br> demandas cadastradas</p>
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi"><?= ep_numero_painel($indicadores['total']) ?></span> <br> demandas cadastradas</p>
                                     </div>
                                 </section>
 
@@ -247,30 +257,29 @@ function ep_data_painel($data): string
                                         <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
                                     </div>
                                     <div class="line-separator-w"></div>
-                                    
                                     <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> empresas cadastradas</p>
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> empresas cadastradas</p>
                                     </div>
                                 </section>
 
                                 <section class='triagem bg-1 container-grid esq observado-me'>
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
                                         <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['triagem']) ?> </div>
-                                        <span class='semibold subtitle text-center'> demandas em triagem </span>
+                                        <span class='semibold subtitle text-center kpi'> demandas em triagem </span>
                                     </div>
                                 </section>
 
                                 <section class='execucao bg-1 container-grid cima observado-me'>
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
                                         <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['execucao']) ?> </div>
-                                        <span class='semibold subtitle text-center'> demandas em execução </span>
+                                        <span class='semibold subtitle text-center kpi'> demandas em execução </span>
                                     </div>
                                 </section>
 
                                 <section class="submetidas bg-1 container-grid dir observado-me">
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
                                         <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['submetidas']) ?> </div>
-                                        <span class='semibold subtitle text-center'> demandas submetidas </span>
+                                        <span class='semibold subtitle text-center kpi'> demandas submetidas </span>
                                     </div>
                                 </section>
 
@@ -281,7 +290,6 @@ function ep_data_painel($data): string
 
                     <section class='p-common'>
                         <h2 class="title text-primary">Situação das Demandas Enviadas ao CEPE</h2>
-
                         <?php if ($erroFiltro !== ''): ?>
                             <p role="alert"><?= ep_e($erroFiltro) ?></p>
                         <?php endif; ?>
@@ -336,79 +344,52 @@ function ep_data_painel($data): string
                                     </div>
                                     -->
 
-                                    <?php 
-                                        for($i = 0; $i < 10; $i++):
-                                    ?>
-                                    
-                                    
-                                    <tr class="interactive text-center" style="height: 120px; background-color: #F2F2F2">
-                                        <td colspan="2" class="text-center text-primary bold subtitle" style="border-radius: 10px 0 0 10px;"> EMPRESA X</td>
-                                        <td colspan="2" class="text-center"> 
-                                            <div> 
-                                                <h3 class="subtitle semibold"> Titulo do Projeto </h3>
-                                                <p class="light text-xl"> Descrição do Problema </p>
-                                            </div>
-                                        </td>
-                                        <td colspan="2" class="text-center semibold subtitle"> 01/12/30 </td>
-                                        <td colspan="2" class="text-center" style="border-radius: 0 10px 10px 0;"> <p class="bold subtitle" style="color: red"> EM EXECUÇÃO </p> </td>
-                                    </tr>
-
-                                    <?php endfor; ?>
-
 
                                 <?php else: ?>
+                                    <?php echo(implode(' ', $demandas[0])); ?>
                                     <?php foreach ($demandas as $demanda): ?>
-                                        <tr class="interactive" style="height: 120px; background-color: #F2F2F2">
-                                            <td colspan="2" class="text-center text-primary bold subtitle" style="border-radius: 10px 0 0 10px;"> <?= ep_e($demanda['nome_fantasia'] ?? 'Empresa não informada') ?> </td>
-                                            <td colspan="2" class="text-center"> 
+                                        
+                                        <tr class="interactive" style="height: 100px; background-color: #F2F2F2">
+                                            <td colspan="2" class="text-center text-primary bold subtitle text-table" style="border-radius: 10px 0 0 10px;"> <?= ep_e($demanda['razão_social'] ?? 'Empresa não informada') ?> </td>
+                                            <td colspan="1" class="text-center" style="width: 50%"> 
                                                 <div> 
-                                                    <h3 class="subtitle semibold"> <?= ep_e($demanda['título'] ?? '') ?> </h3>
-                                                    <p class="light text-xl"> <?= ep_e($demanda['descricão_problema'] ?? '') ?> </p>
+                                                    <h3 class="subtitle semibold text-table"> <?= ep_e($demanda['título'] ?? '') ?> </h3>
+                                                    <p class="light text-table"> <?= ep_e($demanda['descricão_problema'] ?? '') ?> </p>
                                                 </div>
                                             </td>
-                                            <td colspan="2" class="text-center semibold subtitle"> <?= ep_e(ep_data_painel($demanda['data_cadastro'] ?? null)) ?> </td>
-                                            <td colspan="2" class="text-center" style="border-radius: 0 10px 10px 0;"> <p class="bold subtitle" style="color: red"> <?= ep_e($demanda['status'] ?: 'Sem status') ?> </p> </td>
+                                            <td colspan="2" class="text-center semibold subtitle text-table"> <?= ep_e(ep_data_painel($demanda['data_cadastro'] ?? null)) ?> </td>
+                                            <td colspan="2" class="text-center text-table" style="border-radius: 0 10px 10px 0;"> <p class="bold subtitle" style="color: red"> <?= ep_e($demanda['status'] ?: 'Sem status') ?> </p> </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
 
-                        <nav class="flex flex-row items-center justify-center" aria-label="Paginação das demandas" style="gap: 25px; margin-top: 25px">
-                            <a class="flex flex-col items-center interactive">
-                                <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                    <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
-                                </svg>
-                            </a>
-                            <a class="flex flex-col items-center text-center subtitle underline"> 0 </a>
-                            <a class="flex flex-col items-center interactive">
-                                <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                                    <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
-                                </svg>
-                            </a>
-                        </nav>
+                        
 
                         <?php if ($totalPaginas > 1): ?>
-                            <nav aria-label="Paginação das demandas">
-                                <p>Páginas:</p>
+                            <nav class="flex flex-row items-center justify-center" aria-label="Paginação das demandas" style="gap: 25px; margin-top: 25px">
+                                <div class="relative flex flex-row p-6 items-center" style="gap: 20px">
                                 <?php if ($paginaAtual > 1): ?>
-                                    <a href="<?= ep_e(ep_url_visao_geral($paginaAtual - 1, $pesquisa, $filtroStatus)) ?>">
-                                        Anterior
+                                    <a href="<?= ep_e(ep_url_visao_geral($paginaAtual - 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="left: -20%">
+                                        <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
+                                        </svg>
                                     </a>
                                 <?php endif; ?>
 
                                 <?php for ($pagina = 1; $pagina <= $totalPaginas; $pagina++): ?>
-                                    <a
-                                        href="<?= ep_e(ep_url_visao_geral($pagina, $pesquisa, $filtroStatus)) ?>"
-                                        <?= $pagina === $paginaAtual ? 'aria-current="page"' : '' ?>
-                                    ><?= $pagina ?></a>
+                                    <a href="<?= ep_e(ep_url_visao_geral($pagina, $pesquisa, $filtroStatus)) ?>" <?= $pagina === $paginaAtual ? 'aria-current="page"' : '' ?> class="flex flex-col items-center text-center subtitle underline"> <?= $pagina ?> </a>
                                 <?php endfor; ?>
 
                                 <?php if ($paginaAtual < $totalPaginas): ?>
-                                    <a href="<?= ep_e(ep_url_visao_geral($paginaAtual + 1, $pesquisa, $filtroStatus)) ?>">
-                                        Próxima
+                                    <a href="<?= ep_e(ep_url_visao_geral($paginaAtual + 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="right: -20%">
+                                        <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                            <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
+                                        </svg>
                                     </a>
                                 <?php endif; ?>
+                                </div>
                             </nav>
                         <?php endif; ?>
                     </section>
