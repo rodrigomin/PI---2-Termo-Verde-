@@ -15,6 +15,7 @@
     --secondary-text: white;
     --thirdiary-text: #B71111;
     --thirdiary-bg-color: #D9D9D9;
+    --disabled-text: #767575;
     --thirdiary-bg-color: #B71111;
 }
 
@@ -151,6 +152,10 @@
 
 .text-white {
     color: var(--secondary-text);
+}
+
+.text-gray {
+    color: var(--disabled-text);
 }
 
 .text-center {
