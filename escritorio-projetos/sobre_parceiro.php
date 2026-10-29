@@ -86,8 +86,8 @@ function ep_data_proposta_parceiro($data): string
         <main style="border: solid 3px #D9D9D9; margin: 50px;" class="rounded-lg relative">
             <section class="p-common" style="padding-bottom: 0">    
                 <header style="margin: 20px 0">
-                    <h3 class="title text-primary">NOME_FANTASIA</h3>
-                    <p class="subtitle light">CNPJ: 111.111.111/001-11</p>
+                    <h3 class="title text-primary"> <?= ep_e($parceiro['nome_fantasia'] ?: ($parceiro['razão_social'] ?: 'Nome não informado')) ?></h3>
+                    <p class="subtitle light">CNPJ: <?= ep_e($parceiro['CNPJ'] ?: 'Não informado')?></p>
                 </header>
 
                 <hr>
@@ -101,9 +101,9 @@ function ep_data_proposta_parceiro($data): string
             
                 <section class="flex flex-col" style="gap: 5px">
                     <h3 class="text-primary semibold subtitle" style="margin-bottom: 12px;">Contato</h3>
-                    <p class="representante"><strong>Nome do Representante:</strong> José Carlos Oliveira</p>
-                    <p class="email"> <strong>Email:</strong> josecarl0@empresa.com</p>
-                    <p class="telefone"><strong>Telefone:</strong> +55 21 99578-7034</p>
+                    <p class="representante"><strong>Nome do Representante:</strong> <?= ep_e($parceiro['contato_nome'] ?: 'Não informado') ?></p>
+                    <p class="email"> <strong>Email:</strong> <?= ep_e($parceiro['email_corporativo'] ?: 'Não informado') ?></p>
+                    <p class="telefone"><strong>Telefone:</strong> <?= ep_e($parceiro['telefone'] ?: 'Não informado') ?></p>
                 </section>
 
                  <section aria-label="Indicadores do parceiro" style="padding: 50px 0; padding-bottom: 0" class="flex items-center justify-between w-full h-full text-primary container-grid observado-me">
@@ -123,118 +123,14 @@ function ep_data_proposta_parceiro($data): string
                 <?php if ($erroPagina !== ''): ?>
                     <!--<p role="alert"><?= ep_e($erroPagina) ?></p>-->
                 <?php else: ?>
-                    <header>
-                        <h3><?= ep_e($parceiro['nome_fantasia'] ?: ($parceiro['razão_social'] ?: 'Nome não informado')) ?></h3>
-                        <p>CNPJ: <?= ep_e($parceiro['CNPJ'] ?: 'Não informado') ?></p>
-                    </header>
                 
-                    <section>
-                        <h3>Razão Social</h3>
-                        <p><?= ep_e($parceiro['razão_social'] ?: 'Não informada') ?></p>
-                    </section>
-                
-                    <section>
-                        <h3>Contato</h3>
-                        <p>Nome do Representante: <?= ep_e($parceiro['contato_nome'] ?: 'Não informado') ?></p>
-                        <p>Email: <?= ep_e($parceiro['email_corporativo'] ?: 'Não informado') ?></p>
-                        <p>Telefone: <?= ep_e($parceiro['telefone'] ?: 'Não informado') ?></p>
-                    </section>
                 <?php endif; ?>
             </section>
                 
             <?php if ($parceiro !== null): ?>
-                <section aria-label="Indicadores do parceiro">
-                    <?php for ($i = 0; $i < 3; $i++): ?>
-                        <article>
-                            <h3>Demandas Cadastradas</h3>
-                            <p><?= (int) $totalDemandas ?> demandas cadastradas</p>
-                        </article>
-                    <?php endfor; ?>
-                </section>
+                
                     
-                <section>
-                    <h2>Propostas do Parceiro</h2>
-                    <p>Convênios, escopos, documentos de acompanhamento e status</p>
-                    
-                    <?php if ($erroPesquisa !== ''): ?>
-                        <p role="alert"><?= ep_e($erroPesquisa) ?></p>
-                    <?php endif; ?>
-                    
-                    <form action="sobre_parceiro.php" method="get">
-                        <input type="hidden" name="id" value="<?= (int) $empresaId ?>">
-                    
-                        <div>
-                            <label for="pesquisa">Pesquisar Demanda por Nome</label>
-                            <input
-                                type="search"
-                                id="pesquisa"
-                                name="pesquisa"
-                                placeholder="EX: Projeto Jacto"
-                                value="<?= ep_e($pesquisa) ?>"
-                                maxlength="150"
-                            >
-                        </div>
-                    
-                        <div>
-                            <label for="status">Filtrar por</label>
-                            <select id="status" name="status">
-                                <option value="">Todos os status</option>
-                                <?php foreach ($statusDisponiveis as $status): ?>
-                                    <option
-                                        value="<?= ep_e($status) ?>"
-                                        <?= $filtroStatus === $status ? 'selected' : '' ?>
-                                    ><?= ep_e($status) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                                
-                        <button type="submit">Pesquisar</button>
-                    </form>
-                </section>
-                                
-                <section aria-label="Propostas cadastradas">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th scope="col">Título e Descrição</th>
-                                <th scope="col">Data</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Documentos</th>
-                                <th scope="col">Escopo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($propostas)): ?>
-                                <tr><td colspan="5">Nenhuma proposta encontrada.</td></tr>
-                            <?php else: ?>
-                                <?php foreach ($propostas as $proposta): ?>
-                                    <tr>
-                                        <td>
-                                            <strong><?= ep_e($proposta['título'] ?: 'Sem título') ?></strong>
-                                            <p><?= ep_e($proposta['descricão_problema'] ?: 'Descrição não informada') ?></p>
-                                        </td>
-                                        <td><?= ep_e(ep_data_proposta_parceiro($proposta['data_cadastro'] ?? null)) ?></td>
-                                        <td><?= ep_e($proposta['status'] ?: 'Sem status') ?></td>
-                                        <td>
-                                            <a href="documentos_parceiro.php?<?= ep_e(http_build_query([
-                                                'id' => $empresaId,
-                                                'proposta_id' => (int) $proposta['proposta_id'],
-                                            ], '', '&', PHP_QUERY_RFC3986)) ?>">Documentos</a>
-                                        </td>
-                                        <td>
-                                            <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>
-                                                <a href="ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
-                                            <?php else: ?>
-                                                Escopo indisponível
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </section>
-            <?php endif; ?>
+                
 
             <section class="p-common" style="padding-bottom: 0;">
                 <h2 class="text-primary title">Propostas do Parceiro</h2>
@@ -293,28 +189,9 @@ function ep_data_proposta_parceiro($data): string
                     </thead>
                     <tbody>
                         <?php if (empty($propostas)): ?>
-                            <!--
+                            
                             <tr><td colspan="9">Nenhuma proposta encontrada.</td></tr>
-                            -->
 
-                            <tr style="background-color: #f2f2f2; height: 75px">
-                                <td colspan="2" class="" style="border-radius: 10px 0 0 10px;">
-                                    <div class="flex items-center justify-center">
-                                        <div style="text-align: left">
-                                            <strong>Título do Projeto </strong>
-                                            <p>Descrição do Problema</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td colspan="2" class="bold">01/12/25</td>
-                                <td colspan="2" class="bold">EM EXECUÇÃO </td>
-                                <td colspan="2" class="interactive">
-                                    <a class="button">Documentos</a>
-                                </td>
-                                <td colspan="2" class="interactive" style="border-radius: 0 10px 10px 0;">
-                                    <a class="button2" id='ver-escopo'>Ver Escopo</a>
-                                </td>
-                            </tr>
                         <?php else: ?>
                             <?php foreach ($propostas as $proposta): ?>
                                 <tr>
@@ -350,3 +227,4 @@ function ep_data_proposta_parceiro($data): string
     </section>
 </body>
 </html>
+<?php endif; ?>
