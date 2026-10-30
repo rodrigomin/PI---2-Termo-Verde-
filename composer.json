@@ -1,5 +1,6 @@
 {
     "require": {
-        "robmorgan/phinx": "^0.16.12"
+        "robmorgan/phinx": "^0.16.12",
+        "phpmailer/phpmailer": "^7.1"
     }
 }

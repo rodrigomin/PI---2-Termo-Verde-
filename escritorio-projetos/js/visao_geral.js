@@ -123,7 +123,7 @@ if (demandasCadastradas && !demandasCadastradas.classList.contains('show')) {
             demandasCadastradas.innerText = atual;
             
             let progresso = atual / final; 
-
+            
             let tempo = tempoMinimo + (tempoMaximo - tempoMinimo) * (progresso ** 99); 
 
             //console.log(`Valor: ${atual} | Próximo passo em: ${tempo.toFixed(0)}ms`);

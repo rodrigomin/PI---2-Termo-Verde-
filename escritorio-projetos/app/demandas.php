@@ -226,7 +226,7 @@ function ep_cadastrar_demanda(array $dados, array $arquivo): int
             'titulo' => $titulo,
             'descricao' => $descricao,
             'escopo' => $caminho,
-            'status' => 'Em triagem',
+            'status' => 'Submetida',
             'empresa_id' => $empresaId,
             'data_limite' => $dataLimite,
         ]);
