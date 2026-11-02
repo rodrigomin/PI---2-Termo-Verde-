@@ -84,9 +84,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Parceiro - Escritório de Projetos</title>
     <script type="module" src='./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>'> </script>
-    <script type="module" src='./js/documentos.js?v=<?php echo filemtime(__DIR__ . '/js/documentos.js'); ?>'> </script>
     <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
-    <link rel="stylesheet" href="./styles/documentos_parceiro.css?v=<?php echo filemtime(__DIR__ . '/styles/documentos_parceiro.css'); ?>"/>
 </head>
 <body>
     <section class='flex flex-row w-full'>    
