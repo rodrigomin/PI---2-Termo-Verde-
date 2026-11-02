@@ -63,7 +63,7 @@ allStatus.forEach((status) => {
         case "Em Triagem":
             data[1].value = qnt;
             break;
-        case "Submetidos":
+        case "Submetida":
             data[2].value = qnt;
             break;
         case "Concluido":
