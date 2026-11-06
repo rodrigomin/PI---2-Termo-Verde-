@@ -269,7 +269,6 @@ ul li.selected {
 
 ul li.selected .icon {
     background-color: #F7F7F7;
-    padding-left: 15px;
 }
 
 a {
@@ -307,6 +306,10 @@ a {
 
 #nav.closed #logo {
     width: 50px;
+}
+
+#nav.closed ul li.selected {
+    padding-left: 12px;
 }
 
 input, select {
