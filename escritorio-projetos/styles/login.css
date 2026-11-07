@@ -1,0 +1,98 @@
+:root {
+  --vermelho: #b91c1c;
+  --vermelho-botao: #ad1020;
+  --vermelho-escuro: #8f0d1a;
+  --cinza-fundo: #d9d9d9;
+  --texto: #222222;
+  --link: #0000ee;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: "Poppins", system-ui, sans-serif; color: var(--texto); }
+
+.login { display: flex; min-height: 100vh; }
+
+/* Lado vermelho */
+.lado-esquerdo {
+  flex: 1;
+  background: var(--vermelho);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+  gap: 64px;
+}
+.lado-esquerdo h1 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.7;
+  text-align: center;
+}
+.logo-principal { width: 70%; max-width: 320px; }
+
+/* Lado do formulário */
+.lado-direito {
+  flex: 1;
+  background: var(--cinza-fundo);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 72px 6% 24px;
+}
+
+.formulario { display: flex; flex-direction: column; }
+
+.campo { display: block; margin-bottom: 8px; }
+.campo + .campo { margin-top: 40px; }
+.campo span { display: block; font-size: 22px; margin-bottom: 6px; }
+.campo input {
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  border-radius: 2px;
+  background: #ffffff;
+  font: 12px "Poppins", sans-serif;
+}
+.campo input:focus { outline: 2px solid var(--vermelho); }
+
+.esqueci { font-size: 11px; color: var(--link); }
+
+.botao {
+  margin: 64px 4% 0;
+  padding: 12px;
+  border: none;
+  border-radius: 3px;
+  background: var(--vermelho-botao);
+  color: #ffffff;
+  font: 500 15px "Poppins", sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+.botao:hover { background: var(--vermelho-escuro); }
+
+.cadastre {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vermelho-botao);
+}
+
+.logos {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+.logos img { height: 64px; max-width: 30%; object-fit: contain; }
+
+/* Celular: um lado em cima do outro */
+@media (max-width: 720px) {
+  .login { flex-direction: column; }
+  .lado-esquerdo { gap: 32px; padding: 32px 24px; }
+  .logo-principal { width: 50%; }
+  .lado-direito { padding: 40px 24px 24px; }
+}

@@ -80,106 +80,106 @@ function ep_data_envio_tabela($data): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Envio de Demandas - Escritório de Projetos</title>
+    <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
+    <link rel="stylesheet" href="./styles/envio.demanda.css?v=<?php echo filemtime(__DIR__ . '/styles/envio.demanda.css'); ?>"/>
+    <script type="module" src="./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>"></script>
 </head>
 <body>
-    <header>
-        <h1>Escritório de Projetos</h1>
-    </header>
+    <div class="app-container">
+        <!-- Menu Lateral (Sidebar) -->
+        <?php include_once __DIR__ . '/components/nav.php'; ?>
 
-    <nav aria-label="Menu principal">
-        <ul>
-            <li><a href="visao_geral.php">Visão Geral</a></li>
-            <li><a href="cadastro_demanda.php">Cadastro</a></li>
-            <li><a href="parceiros.php">Parceiros</a></li>
-            <li><a href="envio_demandas.php" aria-current="page">Envio Demandas</a></li>
-        </ul>
-        <p><a href="#">Conta</a></p>
-    </nav>
+        <div class="main-wrapper">
+            <!-- Header Superior -->
+            <?php include_once __DIR__ . '/components/header.php'; ?>
 
-    <main>
-        <h2>Envio de Demandas</h2>
+            <!-- Conteúdo Principal -->
+            <main class="content-area">
+                <h2>Envio de Demandas</h2>
 
-        <?php if ($erroPagina !== ''): ?>
-            <p role="alert"><?= ep_e($erroPagina) ?></p>
-        <?php else: ?>
-            <?php if ($mensagem !== ''): ?>
-                <p role="status"><?= ep_e($mensagem) ?></p>
-            <?php endif; ?>
-            <?php if ($erroEnvio !== ''): ?>
-                <p role="alert"><?= ep_e($erroEnvio) ?></p>
-            <?php endif; ?>
-            <?php if ($erroFiltro !== ''): ?>
-                <p role="alert"><?= ep_e($erroFiltro) ?></p>
-            <?php endif; ?>
+                <?php if ($erroPagina !== ''): ?>
+                    <p role="alert"><?= ep_e($erroPagina) ?></p>
+                <?php else: ?>
+                    <?php if ($mensagem !== ''): ?>
+                        <p role="status"><?= ep_e($mensagem) ?></p>
+                    <?php endif; ?>
+                    <?php if ($erroEnvio !== ''): ?>
+                        <p role="alert"><?= ep_e($erroEnvio) ?></p>
+                    <?php endif; ?>
+                    <?php if ($erroFiltro !== ''): ?>
+                        <p role="alert"><?= ep_e($erroFiltro) ?></p>
+                    <?php endif; ?>
 
-            <section>
-                <form action="envio_demandas.php" method="get">
-                    <div>
-                        <label for="pesquisa">Pesquisar Demanda por Nome</label>
-                        <input
-                            type="search"
-                            id="pesquisa"
-                            name="pesquisa"
-                            placeholder="EX: Projeto Jacto"
-                            maxlength="150"
-                            value="<?= ep_e($pesquisa) ?>"
-                        >
-                    </div>
-                    <div>
-                        <label for="ordenacao">Filtrar por</label>
-                        <select id="ordenacao" name="ordenacao">
-                            <option value="antigos" <?= $ordenacao === 'antigos' ? 'selected' : '' ?>>
-                                Mais Antigos
-                            </option>
-                            <option value="recentes" <?= $ordenacao === 'recentes' ? 'selected' : '' ?>>
-                                Mais Recentes
-                            </option>
-                        </select>
-                    </div>
-                    <button type="submit">Pesquisar</button>
-                </form>
-            </section>
+                    <section class="filter-section">
+                        <form action="envio_demandas.php" method="get">
+                            <div>
+                                <label for="pesquisa">Pesquisar Demanda por Nome</label>
+                                <input
+                                    type="search"
+                                    id="pesquisa"
+                                    name="pesquisa"
+                                    placeholder="EX: Projeto Jacto"
+                                    maxlength="150"
+                                    value="<?= ep_e($pesquisa) ?>"
+                                >
+                            </div>
+                            <div>
+                                <label for="ordenacao">Filtrar por</label>
+                                <select id="ordenacao" name="ordenacao">
+                                    <option value="antigos" <?= $ordenacao === 'antigos' ? 'selected' : '' ?>>
+                                        Mais Antigos
+                                    </option>
+                                    <option value="recentes" <?= $ordenacao === 'recentes' ? 'selected' : '' ?>>
+                                        Mais Recentes
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit">Pesquisar</button>
+                        </form>
+                    </section>
 
-            <section aria-label="Demandas disponíveis para envio">
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="col">Empresa</th>
-                            <th scope="col">Título e Descrição</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($demandas)): ?>
-                            <tr>
-                                <td colspan="4">Nenhuma demanda disponível para envio.</td>
-                            </tr>
-                        <?php else: ?>
-                            <?php foreach ($demandas as $demanda): ?>
+                    <section aria-label="Demandas disponíveis para envio" class="table-section">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><?= ep_e($demanda['nome_fantasia'] ?? 'Empresa não informada') ?></td>
-                                    <td>
-                                        <strong><?= ep_e($demanda['título']) ?></strong>
-                                        <p><?= ep_e($demanda['descricão_problema']) ?></p>
-                                    </td>
-                                    <td><?= ep_e(ep_data_envio_tabela($demanda['data_cadastro'])) ?></td>
-                                    <td>
-                                        <form action="envio_demandas.php" method="post">
-                                            <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
-                                            <input type="hidden" name="id_demanda" value="<?= (int) $demanda['proposta_id'] ?>">
-                                            <input type="hidden" name="pesquisa" value="<?= ep_e($pesquisa) ?>">
-                                            <input type="hidden" name="ordenacao" value="<?= ep_e($ordenacao) ?>">
-                                            <button type="submit">Enviar</button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">Empresa</th>
+                                    <th scope="col">Título e Descrição</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Ação</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </section>
-        <?php endif; ?>
-    </main>
+                            </thead>
+                            <tbody>
+                                <?php if (empty($demandas)): ?>
+                                    <tr>
+                                        <td colspan="4">Nenhuma demanda disponível para envio.</td>
+                                    </tr>
+                                <?php else: ?>
+                                    <?php foreach ($demandas as $demanda): ?>
+                                        <tr>
+                                            <td><?= ep_e($demanda['nome_fantasia'] ?? 'Empresa não informada') ?></td>
+                                            <td>
+                                                <strong><?= ep_e($demanda['título']) ?></strong>
+                                                <p><?= ep_e($demanda['descricão_problema']) ?></p>
+                                            </td>
+                                            <td><?= ep_e(ep_data_envio_tabela($demanda['data_cadastro'])) ?></td>
+                                            <td>
+                                                <form action="envio_demandas.php" method="post">
+                                                    <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
+                                                    <input type="hidden" name="id_demanda" value="<?= (int) $demanda['proposta_id'] ?>">
+                                                    <input type="hidden" name="pesquisa" value="<?= ep_e($pesquisa) ?>">
+                                                    <input type="hidden" name="ordenacao" value="<?= ep_e($ordenacao) ?>">
+                                                    <button type="submit">Enviar</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </section>
+                <?php endif; ?>
+            </main>
+        </div>
+    </div>
 </body>
 </html>

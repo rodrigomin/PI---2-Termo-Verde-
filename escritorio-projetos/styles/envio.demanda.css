@@ -1,0 +1,215 @@
+/* Reseta margens e define o tamanho da tela */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Container principal dividindo Menu Lateral e Conteúdo */
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* Wrapper para o Header e o Main Content empilhados à direita do menu */
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Área de conteúdo rolável */
+.content-area {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+/* Ajustes básicos da tabela e formulário de busca para harmonia visual */
+.content-area h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.filter-section form {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  margin-bottom: 25px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table th, table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+/* Estilos para a seção de Envio de Demandas */
+
+.content-area {
+  padding: 30px;
+  background-color: #fcfcfc;
+  font-family: 'Poppins', sans-serif;
+}
+
+.content-area h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 24px;
+}
+
+/* Caixa contenedora dos filtros e tabela */
+.filter-section form {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  margin-bottom: 30px;
+}
+
+.filter-section div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.filter-section label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-section input[type="search"],
+.filter-section select {
+  padding: 12px 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.2s;
+}
+
+.filter-section input:focus,
+.filter-section select:focus {
+  border-color: #c91a25;
+}
+
+.filter-section button[type="submit"] {
+  padding: 12px 24px;
+  background-color: #c91a25;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 45px;
+}
+
+.filter-section button[type="submit"]:hover {
+  background-color: #a8131e;
+}
+
+/* Tabela e Linhas de Demanda Estilizadas */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  background: transparent;
+}
+
+thead th {
+  color: #c91a25;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 0 16px 8px 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+tbody tr {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+tbody td {
+  padding: 16px;
+  vertical-align: middle;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Arredondar as pontas das linhas da tabela */
+tbody tr td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-weight: 700;
+  color: #c91a25;
+}
+
+tbody tr td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* Detalhes do Título e Descrição */
+tbody td strong {
+  display: block;
+  font-size: 1rem;
+  color: #111;
+  margin-bottom: 2px;
+}
+
+tbody td p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Botão de Enviar na Tabela */
+tbody form button[type="submit"] {
+  background-color: #c91a25;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+tbody form button[type="submit"]:hover {
+  background-color: #a8131e;
+}
