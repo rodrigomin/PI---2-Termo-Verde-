@@ -1,6 +1,9 @@
 Se você tiver o xampp instalado, não tem segredo pra fazer funcionar, coloca o apache pra rodar e o mysql pra funcionar também.
+Os arquivos e pastas precisam ser inseridos no seguinte caminho: C:\xampp\htdocs
 
 O projeto tem que ser acessado pelo Admin do lado do apache, se não, o PHP não vai rodar, e ele é praticamente a estrutura inteira do projeto.
+
+Se os arquivos estiverem salvos em um caminho ou pasta diferente da mencionada acima, por exemplo em downloads, ele não será encontrado pelo xampp na execução pelo admin.
 
 Na pasta do projeto, seguindo o caminho app\config.php, verifica se o host e a porta condizem com os configurados no seu xampp. 
 Provável que esteja, já que eu coloquei os valores padrões, então não esquenta muito sua cabeça com isso.

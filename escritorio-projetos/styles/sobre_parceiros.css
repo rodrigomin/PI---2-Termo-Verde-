@@ -16,6 +16,10 @@
     gap: 12px;
 }
 
+td {
+    padding: 0 20px 0 20px;
+}
+
 .representante::before {
     content: '';
     background: url('../src/public/svgs/circle-user-solid-full_black.svg') no-repeat right;

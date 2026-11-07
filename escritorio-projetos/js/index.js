@@ -15,7 +15,7 @@ const observer = new IntersectionObserver((entries, observer) => {
 }, {
     root: null,
     rootMargin: "0px",
-    threshold: 0.90
+    threshold: 0.20
 })
 console.log('oi')
 const observados = document.querySelectorAll('.observado-me')

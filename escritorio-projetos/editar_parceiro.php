@@ -83,88 +83,92 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Parceiro - Escritório de Projetos</title>
+    <script type="module" src='./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>'> </script>
+    <link rel="stylesheet" href="./styles/styles.css?v=<?php echo filemtime(__DIR__ . '/styles/styles.css'); ?>"/>
 </head>
 <body>
-    <header>
-        <h1>Escritório de Projetos</h1>
-    </header>
+    <section class='flex flex-row w-full'>    
+        <div class='flex flex-col justify-start items-start' style='height: 100dvh; position: sticky; top: 0'>
+            <?php include_once __DIR__ . '/components/nav.php'; ?>
+        </div>
+        <div class="flex w-full flex-col">
+            <?php include_once __DIR__ . '/components/header.php'; ?>
+            <main class="p-common">
+                <section>
+                    <h2 class="title">Editar Parceiro</h2>
 
-    <nav aria-label="Menu principal">
-        <ul>
-            <li><a href="visao_geral.php">Visão Geral</a></li>
-            <li><a href="cadastro_demanda.php">Cadastro</a></li>
-            <li><a href="parceiros.php" aria-current="page">Parceiros</a></li>
-            <li><a href="envio_demandas.php">Envio Demandas</a></li>
-        </ul>
-        <p><a href="#">Conta</a></p>
-    </nav>
+                    <?php if ($erroPagina !== ''): ?>
+                        <p role="alert"><?= ep_e($erroPagina) ?></p>
+                    <?php else: ?>
+                        <?php if ($mensagemSucesso !== ''): ?>
+                            <p role="status"><?= ep_e($mensagemSucesso) ?></p>
+                            <p><a href="sobre_parceiro.php?id=<?= (int) $empresaId ?>">Ver dados do parceiro</a></p>
+                        <?php endif; ?>
+                        <?php if ($erroEdicao !== ''): ?>
+                            <p role="alert"><?= ep_e($erroEdicao) ?></p>
+                        <?php endif; ?>
+                    <div style="border: solid 3px #D9D9D9; padding: 0 35px; margin-top: 25px; box-sizing: border-box" class="rounded-lg relative">
+                        <form action="editar_parceiro.php?id=<?= (int) $empresaId ?>" method="post" class="flex flex-col" style="margin: 50px 0; gap: 15px">
+                            <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
+                        
+                            <div class="flex flex-col w-full">
+                                <label class="bold" for="nome_empresa">Nome da Empresa</label>
+                                <input type="text" id="nome_empresa" name="nome_empresa"
+                                    placeholder="Nome da empresa" value="<?= ep_e($nomeEmpresa) ?>"
+                                    maxlength="150" required>
+                            </div>
+                        
+                            <div class="flex flex-col w-full">
+                                <label class="bold" for="cnpj">CNPJ</label>
+                                <input type="text" id="cnpj" name="cnpj"
+                                    placeholder="00.000.000/0000-00" value="<?= ep_e($cnpj) ?>"
+                                    maxlength="18" required>
+                            </div>
+                        
+                            <div class="flex flex-col w-full">
+                                <label class="bold" for="razao_social">Razão Social</label>
+                                <input id="razao_social" name="razao_social" type="text" required value="<?= ep_e($razaoSocial) ?>" />
+                            </div>
+                        
+                            <div class="flex flex-col w-full">
+                                <label class="bold" for="nome_contato">Nome do Contato</label>
+                                <input type="text" id="nome_contato" name="nome_contato"
+                                    placeholder="Nome do representante" value="<?= ep_e($nomeContato) ?>"
+                                    maxlength="45" required>
+                            </div>
+                        
+                            <div class="flex flex-row w-full justify-between items-center" style="gap: 20px">
+                                <div class="flex flex-col w-full">
+                                    <label class="bold" for="email">Email Corporativo</label>
+                                    <input type="email" id="email" name="email"
+                                        placeholder="email@empresa.com" value="<?= ep_e($email) ?>"
+                                        maxlength="45" required>
+                                </div>
 
-    <main>
-        <section>
-            <h2>Editar Parceiro</h2>
-
-            <?php if ($erroPagina !== ''): ?>
-                <p role="alert"><?= ep_e($erroPagina) ?></p>
-            <?php else: ?>
-                <?php if ($mensagemSucesso !== ''): ?>
-                    <p role="status"><?= ep_e($mensagemSucesso) ?></p>
-                    <p><a href="sobre_parceiro.php?id=<?= (int) $empresaId ?>">Ver dados do parceiro</a></p>
-                <?php endif; ?>
-                <?php if ($erroEdicao !== ''): ?>
-                    <p role="alert"><?= ep_e($erroEdicao) ?></p>
-                <?php endif; ?>
-
-                <form action="editar_parceiro.php?id=<?= (int) $empresaId ?>" method="post">
-                    <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf) ?>">
-
-                    <div>
-                        <label for="nome_empresa">Nome da Empresa</label>
-                        <input type="text" id="nome_empresa" name="nome_empresa"
-                            placeholder="Nome da empresa" value="<?= ep_e($nomeEmpresa) ?>"
-                            maxlength="150" required>
+                                <div class="flex flex-col" style="width: 50%">
+                                    <label class="bold" for="telefone">Telefone</label>
+                                    <div class="flex flex-row items-center" style="gap: 5px">
+                                        <span>+55</span>
+                                        <input type="tel" id="telefone" name="telefone" class="w-full"
+                                            placeholder="DDD + Número" value="<?= ep_e($telefone) ?>"
+                                            maxlength="45" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col justify-center items-center" style="margin-top: 35px">
+                                <div class="flex flex-col w-full" style="gap: 10px; width: 35%">   
+                                    <button class="button interactive w-full" type="submit" style="padding: 20px 100px">Submeter Edição</button>
+                                    <button class="button2 interactive w-full">
+                                        <a style="text-decoration: none; color: #B71111" href="parceiros.php">Voltar ao Banco de Parceiros</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <?php endif; ?>
                     </div>
-
-                    <div>
-                        <label for="cnpj">CNPJ</label>
-                        <input type="text" id="cnpj" name="cnpj"
-                            placeholder="00.000.000/0000-00" value="<?= ep_e($cnpj) ?>"
-                            maxlength="18" required>
-                    </div>
-
-                    <div>
-                        <label for="razao_social">Razão Social</label>
-                        <textarea id="razao_social" name="razao_social"
-                            rows="5" maxlength="150" required><?= ep_e($razaoSocial) ?></textarea>
-                    </div>
-
-                    <div>
-                        <label for="nome_contato">Nome do Contato</label>
-                        <input type="text" id="nome_contato" name="nome_contato"
-                            placeholder="Nome do representante" value="<?= ep_e($nomeContato) ?>"
-                            maxlength="45" required>
-                    </div>
-
-                    <div>
-                        <label for="email">Email Corporativo</label>
-                        <input type="email" id="email" name="email"
-                            placeholder="email@empresa.com" value="<?= ep_e($email) ?>"
-                            maxlength="45" required>
-                    </div>
-
-                    <div>
-                        <label for="telefone">Telefone</label>
-                        <span>+55</span>
-                        <input type="tel" id="telefone" name="telefone"
-                            placeholder="DDD + Número" value="<?= ep_e($telefone) ?>"
-                            maxlength="45" required>
-                    </div>
-
-                    <button type="submit">Submeter Edição</button>
-                </form>
-            <?php endif; ?>
-
-            <p><a href="parceiros.php">Voltar ao Banco de Parceiros</a></p>
-        </section>
-    </main>
+                </section>
+            </main>
+        </div>
+    </section>
 </body>
 </html>

@@ -1,0 +1,6 @@
+.env
+/vendor/
+*.log
+.phpunit.result.cache
+/.vscode/
+envio_email.php
