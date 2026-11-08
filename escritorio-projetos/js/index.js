@@ -17,10 +17,18 @@ const observer = new IntersectionObserver((entries, observer) => {
     rootMargin: "0px",
     threshold: 0.20
 })
-console.log('oi')
 const observados = document.querySelectorAll('.observado-me')
 observados.forEach(elemento => {
     observer.observe(elemento);
 });
 
+const contaHeader = document.getElementById('user-button');
 
+if (contaHeader) {
+    contaHeader.addEventListener('click', () => {
+        const contaDropdown = document.querySelector('.card-header');
+        if (contaDropdown) {
+            contaDropdown.classList.toggle('show');
+        }
+    })
+}

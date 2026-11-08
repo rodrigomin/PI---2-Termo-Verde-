@@ -269,13 +269,9 @@ ul li.selected {
 
 ul li.selected .icon {
     background-color: #F7F7F7;
-}
 
-a {
-    text-decoration: none;
-    white-space: nowrap;
-}
 
+}
 #visao-geral {
     display: flex;
     align-items: center;
@@ -401,4 +397,31 @@ td {
 
 .hidden {
     display: none;
+}
+
+.card-header {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    height: 0%;
+    overflow: hidden;
+    padding: 0px 20px;
+    z-index: 999999999999;
+    background-color: #761c1c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-header.show {
+    height: 100%;
+    padding: 10px 20px
+}
+
+a {
+    text-decoration: none;
+    white-space: nowrap;
 }
