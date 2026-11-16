@@ -29,6 +29,7 @@ function ep_inicializar_banco(): bool
     $consulta->execute([$nome]);
     $foiCriado = (int) $consulta->fetchColumn() === 0;
 
+    
     if (!$foiCriado) {
         $servidor->exec('USE `' . $nome . '`');
         ep_verificar_estrutura($servidor);

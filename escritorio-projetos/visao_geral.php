@@ -264,7 +264,7 @@ function ep_data_painel($data): string
 
                                 <section class='triagem bg-1 container-grid esq observado-me'>
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores); ?> </div>
+                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['triagem']); ?> </div>
                                         <span class='semibold subtitle text-center kpi'> demandas em triagem </span>
                                     </div>
                                 </section>

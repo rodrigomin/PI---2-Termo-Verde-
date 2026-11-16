@@ -17,8 +17,8 @@ var data = [
     },
     {
         value: 0,
-        color: "#FDB45C",
-        highlight: "#FFC870",
+        color: "#f6ff00",
+        highlight: "#f6ff00",
         label: "Submetidos"
     },
     {
@@ -54,19 +54,29 @@ var data2 = [
 allStatus.forEach((status) => {
     let nome = status.dataset.name;
     let qnt = status.dataset.qnt;
+    
+
+    console.log({
+        nome: nome,
+        quantidade: qnt
+    });
+   
+    console.table(data);
 
     switch (nome) {
         case "Em Execução":
             data[0].value = qnt;
             data2[0].value = qnt;
             break;
+        case "Triagem":
         case "Em Triagem":
             data[1].value = qnt;
             break;
         case "Submetida":
             data[2].value = qnt;
             break;
-        case "Concluido":
+        case "Concluída":
+        case "Concluído":
             data[3].value = qnt;
             break;
         case "Sem status":

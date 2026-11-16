@@ -1,7 +1,3 @@
-CREATE DATABASE escritorio_de_projetos;
-
-USE escritorio_de_projetos;
-
 CREATE TABLE Empresas_Parceiras(
 	empresa_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     CNPJ VARCHAR(45) NOT NULL,
@@ -39,7 +35,6 @@ CREATE TABLE Documentos_Acompanhamento(
     arquivo_doc LONGBLOB NOT NULL,
     data_envio DATETIME(2) NOT NULL,
     proposta_id INT,
-    arquivo_path VARCHAR(150) NOT NULL,
     FOREIGN KEY (proposta_id) REFERENCES Propostas_Externas(proposta_id)
 );
 

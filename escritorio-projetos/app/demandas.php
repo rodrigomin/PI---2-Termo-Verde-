@@ -50,9 +50,9 @@ function ep_total_demandas(?string $status = null): int
 function ep_indicadores_visao_geral(?int $empresaId): array
 {
     $sql = 'SELECT COUNT(*) AS total,
-                   COALESCE(SUM(CASE WHEN `status` = \'Em execução\' THEN 1 ELSE 0 END), 0) AS execucao,
-                   COALESCE(SUM(CASE WHEN `status` = \'Em triagem\' THEN 1 ELSE 0 END), 0) AS triagem,
-                   COALESCE(SUM(CASE WHEN `status` = \'Submetido\' THEN 1 ELSE 0 END), 0) AS submetidas
+                   COALESCE(SUM(CASE WHEN `status` = \'Em Execução\' THEN 1 ELSE 0 END), 0) AS execucao,
+                   COALESCE(SUM(CASE WHEN `status` = \'Em Triagem\' THEN 1 ELSE 0 END), 0) AS triagem,
+                   COALESCE(SUM(CASE WHEN `status` = \'Submetida\' THEN 1 ELSE 0 END), 0) AS submetidas
             FROM `Propostas_Externas`';
     $parametros = [];
     if ($empresaId !== null) {
