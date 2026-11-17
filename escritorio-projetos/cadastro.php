@@ -34,12 +34,20 @@ try {
         if (!ep_validar_csrf($_POST['csrf_token'] ?? null)) {
             $erroCadastro = 'Não foi possível validar o formulário. Recarregue a página e tente novamente.';
         } else {
+            ep_cadastrar_representante($_POST);
             try {
-                ep_cadastrar_representante($_POST);
-                $_SESSION['cadastro_sucesso'] = 'Cadastro realizado com sucesso. Agora você pode fazer login.';
+                ep_aprovacao_notificar_gestor([
+                    'nome_fantasia' => $empresa,
+                    'contato_nome' => $nome,
+                    'email_corporativo' => $email,
+                ]);
+                $_SESSION['cadastro_sucesso'] = 'Solicitação recebida. Aguarda a análise do gestor do escritório.';
                 ep_redirecionar('cadastro.php');
-            } catch (InvalidArgumentException $erro) {
-                $erroCadastro = $erro->getMessage();
+            } catch (Throwable $erroEmail) {
+                error_log('Falha ao notificar gestor sobre cadastro: ' . $erroEmail->getMessage());
+
+                $_SESSION['cadastro_sucesso'] = 'Solicitação salva e aguardando análise. ' . 'O aviso ao gestor não foi enviado; entre em contato com o escritório.';
+                ep_redirecionar('cadastro.php');
             }
         }
     }

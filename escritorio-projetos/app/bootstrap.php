@@ -9,3 +9,4 @@ require_once __DIR__ . '/arquivos.php';
 require_once __DIR__ . '/demandas.php';
 require_once __DIR__ . '/encaminhamentos.php';
 require_once __DIR__ . '/documentos.php';
+require_once __DIR__ . '/aprovacao_email.php';

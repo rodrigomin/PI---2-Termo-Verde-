@@ -37,10 +37,18 @@ try {
             $senha === ''
         ) {
             $erroLogin = 'Preencha o e-mail e a senha corretamente.';
-        } elseif (ep_login($email, $senha)) {
-            ep_redirecionar('visao_geral.php');
         } else {
-            $erroLogin = 'E-mail ou senha inválidos.';
+            $resultadoLogin = ep_login($email, $senha);
+
+            if ($resultadoLogin === 'sucesso') {
+                ep_redirecionar('visao_geral.php');
+            } elseif ($resultadoLogin === 'pendente') {
+                $erroLogin = 'Seu cadastro aguarda aprovação do gestor.';
+            } elseif ($resultadoLogin === 'rejeitado') {
+                $erroLogin = 'O cadastro da empresa não foi aprovado.';
+            } else {
+                $erroLogin = 'E-mail ou senha inválidos.';
+            }
         }
     }
 

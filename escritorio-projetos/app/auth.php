@@ -37,14 +37,16 @@ function ep_cadastrar_representante(array $dados): int
 
         $consulta = $db->prepare(
             'INSERT INTO `Empresas_Parceiras`
-             (`nome_fantasia`, `contato_nome`, `email_corporativo`, `telefone`)
-             VALUES (:empresa, :contato, :email, :telefone)'
+             (`nome_fantasia`, `contato_nome`, `email_corporativo`, `telefone`,
+             `status_cadastro`, `solicitado_em`)
+             VALUES (:empresa, :contato, :email, :telefone, :status, NOW())'
         );
         $consulta->execute([
             'empresa' => $empresa,
             'contato' => $nome,
             'email' => $email,
             'telefone' => $telefone,
+            'status' => 'pendente',
         ]);
         $empresaId = (int) $db->lastInsertId();
 
@@ -75,23 +77,38 @@ function ep_cadastrar_representante(array $dados): int
     }
 }
 
-function ep_login(string $email, string $senha): bool
+function ep_login(string $email, string $senha): string
 {
     $stmt = ep_db()->prepare(
-        'SELECT `usuario_id`, `senha_hash` FROM `Usuarios`
-         WHERE `email` = :email AND `ativo` = 1 LIMIT 1'
+        'SELECT u.`usuario_id`, u.`senha_hash`, u.`perfil`, e.`status_cadastro`
+         FROM `Usuarios` AS u
+         LEFT JOIN `Empresas_Parceiras` AS e
+            ON e.`empresa_id` = u.`empresa_id`
+         WHERE u.`email` = :email AND u.`ativo` = 1 LIMIT 1'
     );
     $stmt->execute(['email' => strtolower(trim($email))]);
     $usuario = $stmt->fetch();
 
-    if (!$usuario || !password_verify($senha, $usuario['senha_hash'])) {
-        return false;
+    if (!$usuario || !password_verify($senha, (string) $usuario['senha_hash'])) {
+        return 'invalido';
+    }
+
+    if ($usuario['perfil'] !== 'administrador') {
+        $status = (string) ($usuario['status_cadastro'] ?? '');
+
+        if ($status === 'pendente') {
+            return 'pendente';
+        }
+
+        if ($status !== 'aprovado') {
+            return 'rejeitado';
+        }
     }
 
     ep_iniciar_sessao();
     session_regenerate_id(true);
     $_SESSION['usuario_id'] = (int) $usuario['usuario_id'];
-    return true;
+    return 'sucesso';
 }
 
 function ep_usuario_atual(): ?array
@@ -102,8 +119,17 @@ function ep_usuario_atual(): ?array
     }
 
     $stmt = ep_db()->prepare(
-        'SELECT `usuario_id`, `empresa_id`, `nome`, `email`, `perfil`
-         FROM `Usuarios` WHERE `usuario_id` = :id AND `ativo` = 1 LIMIT 1'
+        'SELECT u.`usuario_id`, u.`empresa_id`, u.`nome`, u.`email`, u.`perfil`
+         FROM `Usuarios` AS u
+         LEFT JOIN `Empresas_Parceiras` AS e
+            ON e.`empresa_id` = u.`empresa_id`
+         WHERE u.`usuario_id` = :id
+         AND u.`ativo` = 1
+         AND (
+            u.`perfil` = \'administrador\'
+            OR e.`status_cadastro` = \'aprovado\'
+         )
+         LIMIT 1'
     );
     $stmt->execute(['id' => (int) $_SESSION['usuario_id']]);
     return $stmt->fetch() ?: null;

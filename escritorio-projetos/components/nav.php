@@ -1,10 +1,20 @@
-<?php $paginaAtual = basename($_SERVER['PHP_SELF'] ?? ''); ?>
+<?php
+$paginaAtual = basename($_SERVER['PHP_SELF'] ?? '');
+$usuarioMenu = ep_usuario_atual(); ?>
 <nav aria-label="Menu principal" id='nav' class='flex flex-col justify-start items-center' style='border-right: solid #d9d9d9 3px; padding: 50px 0 50px 15px; box-sizing: border-box'>
         <img id='logo' src="./src/public/assets/cps-logo.png" alt="Logo do Escritório de Projetos" style='margin: 0 15px 20px 0; aspect-ratio: 45px; transition: all 0.3s ease-in-out;'>
         
         <hr>
 
         <ul id='optns' class='flex flex-col items-start w-full h-full' style="text-decoration: none; list-style-type: none; padding: 0px; margin-top: 20px; gap: 2.5rem;">
+            <?php if (
+                $usuarioMenu !== null
+                && ($usuarioMenu['perfil'] ?? '') === 'administrador'
+            ): ?>
+            <li>
+                <a href="aprovacao_de_parceiros.php"> Aprovação de parceiros </a>
+            </li>
+            <?php endif; ?>
             <li id='visao-geral' class='<?= $paginaAtual === 'visao_geral.php' ? 'selected' : '' ?>'>
                 <div class='interactive flex items-center' style='gap: 15px;'> 
                     <img class='icon' src='./src/public/svgs/house-solid-full.svg' alt='Visão Geral' style='aspect-ratio: 1/1;'>

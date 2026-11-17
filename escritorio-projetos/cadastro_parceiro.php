@@ -37,13 +37,20 @@ try {
         if (!ep_validar_csrf($_POST['csrf_token'] ?? null)) {
             $erroCadastro = 'Não foi possível validar o formulário. Atualize a página e tente novamente.';
         } else {
+            $id = ep_cadastrar_parceiro($_POST);
             try {
-                $id = ep_cadastrar_parceiro($_POST);
-                $_SESSION['parceiro_sucesso'] = 'Parceiro cadastrado com sucesso (nº ' . $id . ').';
-                ep_redirecionar('cadastro_parceiro.php');
-            } catch (InvalidArgumentException | DomainException $erro) {
-                $erroCadastro = $erro->getMessage();
+                ep_aprovacao_notificar_gestor([
+                    'nome_fantasia' => $nomeEmpresa,
+                    'contato_nome' => $nomeContato,
+                    'email_corporativo' => $email,
+                ]);
+                $_SESSION['parceiro_sucesso'] = 'Solicitação cadastrada e enviada para análise do gestor (nº ' . $id . ').';
+            } catch (Throwable $erroEmail) {
+                error_log('Falha ao notificar gestor sobre parceiro: ' . $erroEmail->getMessage());
+
+                $_SESSION['parceiro_sucesso'] = 'Solicitação cadastrada como pendente, mas o aviso ao gestor falhou (nº ' . $id . ').';
             }
+            ep_redirecionar('cadastro_parceiro.php');
         }
     }
 

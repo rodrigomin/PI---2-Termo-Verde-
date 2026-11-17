@@ -346,7 +346,6 @@ function ep_data_painel($data): string
 
 
                                 <?php else: ?>
-                                    <?php echo(implode(' ', $demandas[0])); ?>
                                     <?php foreach ($demandas as $demanda): ?>
                                         
                                         <tr class="interactive" style="height: 100px; background-color: #F2F2F2">
