@@ -18,7 +18,7 @@ function ep_iniciar_sessao(): void
     session_start();
 }
 
-function ep_e($valor): string
+function ep_e(mixed $valor): string
 {
     return htmlspecialchars((string) $valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }

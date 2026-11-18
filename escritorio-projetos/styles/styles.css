@@ -230,6 +230,9 @@ button {
 .text-red {
     color: #B71111;
 }
+.text-secondary {
+    color: #767575;
+}
 
 .optn {
     color: #B71111;
@@ -292,7 +295,7 @@ ul li.selected .icon {
     width: 90px;
 }
 
-#nav.closed ul li a, #nav.closed button a  {
+#nav.closed ul li p, #nav.closed button p {
     display: none;
 }
 

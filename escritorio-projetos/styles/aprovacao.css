@@ -1,0 +1,55 @@
+.green-card {
+
+}
+
+.red-card {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 3px 0 rgba(255, 0, 0, 0.4),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 0 20px 10px rgba(254, 237, 237, 0.23);
+    position: relative;
+    padding: 3rem 2.5rem;
+    border-radius: 8px;
+    gap: 0.35rem;
+    transition: all ease-in-out 0.3s;
+}
+
+
+.error {
+    animation: 'error' 1s ease-in-out forwards;
+    color: #ff4848;
+}
+
+.motivo {
+    margin-top: 10px;
+    border: none;
+    border-bottom: 2px solid gray;
+    border-radius: 0;
+    transition: all ease-in-out 200ms;
+    background-color: rgb(244, 224, 224);
+}
+
+.motivo:focus {
+    border-bottom: 2px solid #ff4848;
+}
+
+@keyframes error {
+    0% {
+        transform: translateX(-2px);
+    }
+    25% {
+        transform: translateX(2px);
+    }
+    50% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}

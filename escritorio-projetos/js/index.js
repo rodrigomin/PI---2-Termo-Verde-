@@ -1,10 +1,11 @@
 import switchNav from "./nav.js";
 
 const nav = document.getElementById('nav')
-console.log(nav)
+
 if (nav) {
     switchNav();
 }
+
 const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if(entry.isIntersecting) {

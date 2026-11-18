@@ -84,12 +84,10 @@ function ep_data_envio_tabela($data): string
     <link rel="stylesheet" href="./styles/envio.demanda.css?v=<?php echo filemtime(__DIR__ . '/styles/envio.demanda.css'); ?>"/>
     <script type="module" src="./js/index.js?v=<?php echo filemtime(__DIR__ . '/js/index.js'); ?>"></script>
 </head>
-<body>
-    <div class="app-container">
-        <!-- Menu Lateral (Sidebar) -->
+<body class="flex flex-row w-full h-full">        
         <?php include_once __DIR__ . '/components/nav.php'; ?>
 
-        <div class="main-wrapper">
+        <div class="w-full">
             <!-- Header Superior -->
             <?php include_once __DIR__ . '/components/header.php'; ?>
 
@@ -141,11 +139,11 @@ function ep_data_envio_tabela($data): string
                     <section aria-label="Demandas disponíveis para envio" class="table-section">
                         <table>
                             <thead>
-                                <tr>
-                                    <th scope="col">Empresa</th>
-                                    <th scope="col">Título e Descrição</th>
-                                    <th scope="col">Data</th>
-                                    <th scope="col">Ação</th>
+                                <tr">
+                                    <th scope="col" class="text-center">Empresa</th>
+                                    <th scope="col" class="text-center">Título e Descrição</th>
+                                    <th scope="col" class="text-center">Data</th>
+                                    <th scope="col" class="text-center">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>

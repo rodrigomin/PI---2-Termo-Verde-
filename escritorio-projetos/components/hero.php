@@ -3,6 +3,7 @@
         <div class="flex flex-1 flex-row justify-end items-center w-full h-full">
             <div class='absolute bottom-0 left-0 flex' style='margin: 3rem; gap: 75px'>
                 <img src="./src/public/assets/cps-logo-branco.png" alt="Logo do Escritório de Projetos" width="100" height="70">
+                <img src="./src/public/assets/fatec-logo.png" alt="Logo do Escritório de Projetos" width="100" height="70" style="filter: brightness(0) invert(1); left: 25%;">
             </div>
 
             <div class='flex flex-col justify-center items-center w-full h-full'>

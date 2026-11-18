@@ -1,0 +1,317 @@
+/* =========================================
+   ESTILOS DA PÁGINA DE CADASTRO DE DEMANDAS
+   ========================================= */
+
+/* Container principal do formulário (estilo cartão branco com borda) */
+.cadastro-container {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    max-width: 850px;
+    width: 100%;
+}
+
+/* Abas de Navegação (Demandas / Parceiros) */
+.cadastro-tabs {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+.cadastro-tabs a {
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Aba Ativa (Demandas) */
+.cadastro-tabs a[aria-current="page"] {
+    background-color: #b91c1c; /* Vermelho padrão */
+    color: #ffffff;
+}
+
+/* Aba Inativa (Parceiros) */
+.cadastro-tabs a:not([aria-current="page"]) {
+    background-color: #f3f4f6;
+    color: #b91c1c;
+}
+
+.cadastro-tabs a:not([aria-current="page"]):hover {
+    background-color: #fee2e2;
+}
+
+/* Estrutura do Formulário */
+.cadastro-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Grupos de campos */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #111827;
+    font-size: 15px;
+}
+
+/* Inputs de texto, data e textarea */
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #1f2937;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9ca3af;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #b91c1c;
+    box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Campo de Arquivo (Escopo) */
+.form-group input[type="file"] {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #4b5563;
+    width: 100%;
+}
+
+.form-group p {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* Botão de Envio */
+.btn-cadastrar {
+    background-color: #b91c1c;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    align-self: center; /* Centralizado como no seu rascunho */
+    transition: background-color 0.2s;
+    margin-top: 12px;
+}
+
+.btn-cadastrar:hover {
+    background-color: #991b1b;
+}
+
+
+/* EMMANUEL */
+
+ *, *::before, *::after { 
+    box-sizing: border-box; 
+}
+html, body { 
+    margin: 0; 
+    padding: 0; 
+}
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: #fff; 
+    color: #000; 
+    min-height: 100vh; 
+}
+.conteudo { 
+    min-width: 0; 
+    margin-left: 250px; 
+}
+.topbar { 
+    height: 83px; 
+    border-bottom: 2px solid #D9D9D9; 
+    background: #fff; 
+}
+
+main { 
+    display: flex;
+    flex-direction:column;
+    width: 100%; 
+    align-items: center;
+    justify-content: center;
+}
+
+.tabs {
+    display: flex;
+    width: 100%;
+}
+
+.tabs ul li {
+    width: auto;
+}
+
+.tabs ul { 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    list-style: none; 
+    margin: 20px 0; 
+    padding: 0; 
+    display: flex; 
+}
+.tabs a {
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    width: 247px; 
+    height: 55px; 
+    text-decoration: none; 
+    border-radius: 8px;
+    background: #F7F7F7; 
+    color: #B71111;
+}
+.tabs a[aria-current="page"] { 
+    background: #B71111; 
+    color: #fff; 
+}
+
+.card-wrapper {
+    width: 60%;
+    margin-top: 25px;
+}
+
+.card { 
+    width: 100%;
+    border: 2px solid #D9D9D9; 
+    border-radius: 8px; 
+    padding: 40px 41px; 
+    background: #fff; 
+}
+.card [role="alert"] { 
+    color: #B71111; 
+    font-weight: 600;
+}
+.card [role="status"] { 
+    color: #1a7f37; 
+    font-weight: 600; 
+}
+form { 
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+label { 
+    display: block; 
+    margin-bottom: 14px; 
+    font-size: 16px; 
+    font-weight: 600; 
+}
+input[type="text"], input[type="date"], input[type="file"], textarea {
+    width: 100%; 
+    min-height: 50px; 
+    padding: 0 25px;
+    border: 2px solid #D9D9D9; 
+    border-radius: 8px; 
+    background: #fff;
+    font-family: inherit; 
+    font-size: 14px; 
+    font-weight: 200; 
+    color: #1D1B20;
+}
+input[type="file"] { 
+    padding: 10px 25px; 
+}
+input::placeholder, textarea::placeholder { 
+    color: #D9D9D9; 
+}
+textarea { 
+    padding: 14px 25px; 
+    min-height: 117px; 
+    resize: vertical; 
+}
+input:focus, textarea:focus { 
+    outline: 2px solid #B71111; 
+    outline-offset: 1px; 
+}
+form p { 
+    margin: 8px 0 0; 
+    font-size: 12px; 
+    color: #777; 
+}
+button[type="submit"] {
+    display: block; 
+    width: 100%; 
+    max-width: 100%; 
+    height: 60px; 
+    margin: 0 auto;
+    border: 0; 
+    border-radius: 17px; 
+    background: #B71111; 
+    color: #fff;
+    font-family: inherit; 
+    font-size: 14px; 
+    font-weight: 600; 
+    cursor: pointer;
+}
+button[type="submit"]:hover { 
+    filter: brightness(1.1); 
+}
+@media (max-width: 800px) {
+    .conteudo { 
+        margin-left: 0; 
+    }
+    main { 
+        padding: 30px 16px;
+    }
+    .tabs ul { 
+        gap: 8px; 
+    }
+    .tabs li { 
+        flex: 1; min-width: 0;
+    }
+    .tabs a { 
+        width: 100%; 
+    }
+    .card { 
+        padding: 24px 18px; 
+    }
+    label { 
+        font-size: 24px; 
+    }
+    input[type="text"], input[type="date"], input[type="file"], textarea { 
+        padding-right: 12px; 
+        padding-left: 12px; 
+        font-size: 16px; 
+    }
+}

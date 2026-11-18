@@ -37,10 +37,18 @@ try {
             $senha === ''
         ) {
             $erroLogin = 'Preencha o e-mail e a senha corretamente.';
-        } elseif (ep_login($email, $senha)) {
-            ep_redirecionar('visao_geral.php');
         } else {
-            $erroLogin = 'E-mail ou senha inválidos.';
+            $resultadoLogin = ep_login($email, $senha);
+
+            if ($resultadoLogin === 'sucesso') {
+                ep_redirecionar('visao_geral.php');
+            } elseif ($resultadoLogin === 'pendente') {
+                $erroLogin = 'Seu cadastro aguarda aprovação do gestor.';
+            } elseif ($resultadoLogin === 'rejeitado') {
+                $erroLogin = 'O cadastro da empresa não foi aprovado.';
+            } else {
+                $erroLogin = 'E-mail ou senha inválidos.';
+            }
         }
     }
 
@@ -136,8 +144,7 @@ try {
 
                         <button type="submit" style="padding: 12px; background-color: #b30000; color: #ffffff; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">Fazer Login</button>
                         
-                        <div class="flex flex-row items-center justify-between gap-2" style="width: 100%">
-                            <a href="cadastro.php" style="font-size: 0.95rem; color: #b30000; text-decoration: underline; font-weight: 600;">Cadastre-se aqui</a>
+                        <div class="flex flex-row items-center justify-center gap-2" style="width: 100%">
                             <a href="#" style="color: #0000ee; text-decoration: underline;">Esqueci a senha</a>
                         </div>
                     </form>

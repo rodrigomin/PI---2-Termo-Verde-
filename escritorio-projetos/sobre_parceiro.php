@@ -206,14 +206,14 @@ function ep_data_proposta_parceiro($data): string
                                     <td colspan="2" class="bold"><?= ep_e(ep_data_proposta_parceiro($proposta['data_cadastro'] ?? null)) ?></td>
                                     <td colspan="2" class="bold" style="padding: 12px"><?= ep_e($proposta['status'] ?: 'Sem status') ?></td>
                                     <td colspan="2" class="interactive">
-                                        <a class="button" href="documentos_parceiro.php?<?= ep_e(http_build_query([
+                                        <a class="button" href="./app/nav.php?documentos_parceiro.php?<?= ep_e(http_build_query([
                                             'id' => $empresaId,
                                             'proposta_id' => (int) $proposta['proposta_id'],
                                         ], '', '&', PHP_QUERY_RFC3986)) ?>">Documentos</a>
                                     </td>
                                     <td colspan="2" class="interactive p-6" style="border-radius: 0 10px 10px 0;">
                                         <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>
-                                            <a class="button2" id='ver-escopo' href="ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
+                                            <a class="button2" id='ver-escopo' href="./app/nav.php?ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
                                         <?php else: ?>
                                             Escopo indisponível
                                         <?php endif; ?>

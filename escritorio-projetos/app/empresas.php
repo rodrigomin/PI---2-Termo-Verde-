@@ -144,8 +144,9 @@ function ep_cadastrar_parceiro(array $dados): int
             $consulta = $db->prepare(
                 'INSERT INTO `Empresas_Parceiras`
                  (`nome_fantasia`, `CNPJ`, `razão_social`,
-                  `contato_nome`, `email_corporativo`, `telefone`)
-                 VALUES (:nome, :cnpj, :razao, :contato, :email, :telefone)'
+                  `contato_nome`, `email_corporativo`, `telefone`,
+                  `status_cadastro`, `solicitado_em`)
+                 VALUES (:nome, :cnpj, :razao, :contato, :email, :telefone, :status, NOW())'
             );
             $consulta->execute([
                 'nome' => $nomeEmpresa,
@@ -154,6 +155,7 @@ function ep_cadastrar_parceiro(array $dados): int
                 'contato' => $nomeContato,
                 'email' => $email,
                 'telefone' => $telefone,
+                'status' => 'pendente',
             ]);
             $id = (int) $db->lastInsertId();
             $db->commit();
