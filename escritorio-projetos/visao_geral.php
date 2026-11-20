@@ -349,9 +349,11 @@ function ep_data_painel($data): string
 
                                 <?php else: ?>
                                     <?php foreach ($demandas as $demanda): ?>
-                                        
+                                        <?php if ($demanda['status_cadastro'] === 'pendente' || $demanda['status_cadastro'] === 'rejeitado'):
+                                            continue;
+                                        endif; ?>
                                         <tr class="interactive" style="height: 100px; background-color: #F2F2F2">
-                                            <td colspan="2" class="text-center text-primary bold subtitle text-table" style="border-radius: 10px 0 0 10px;"> <?= ep_e($demanda['razão_social'] ?? 'Empresa não informada') ?> </td>
+                                            <td colspan="2" class="text-center text-primary bold subtitle text-table" style="border-radius: 10px 0 0 10px;"> <?= ep_e($demanda['nome_fantasia'] ?? $demanda['razão_social'] ?? 'Empresa não informada') ?> </td>
                                             <td colspan="1" class="text-center" style="width: 50%"> 
                                                 <div> 
                                                     <h3 class="subtitle semibold text-table"> <?= ep_e($demanda['título'] ?? '') ?> </h3>

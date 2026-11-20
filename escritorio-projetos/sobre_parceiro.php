@@ -212,8 +212,8 @@ function ep_data_proposta_parceiro($data): string
                                         ], '', '&', PHP_QUERY_RFC3986)) ?>">Documentos</a>
                                     </td>
                                     <td colspan="2" class="interactive p-6" style="border-radius: 0 10px 10px 0;">
-                                        <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>
-                                            <a class="button2" id='ver-escopo' href="./app/nav.php?ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
+                                        <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>>
+                                            <a class="button2" id='ver-escopo' href="ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
                                         <?php else: ?>
                                             Escopo indisponível
                                         <?php endif; ?>

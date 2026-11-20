@@ -13,9 +13,14 @@ $descricao = '';
 $dataLimite = '';
 
 try {
-    $usuario = ['empresa_id' => 1];
-$podeCadastrar = true;
     ep_iniciar_sessao();
+    $usuario = ep_usuario_atual();
+    if ($usuario === null) {
+        ep_redirecionar('index.php');
+    }
+
+    $empresaId = (int) ($usuario['empresa_id'] ?? 0);
+    $podeCadastrar = $empresaId > 0 && ep_pode_acessar_empresa($empresaId);
 
     if (isset($_SESSION['demanda_sucesso'])) {
         $mensagemSucesso = (string) $_SESSION['demanda_sucesso'];

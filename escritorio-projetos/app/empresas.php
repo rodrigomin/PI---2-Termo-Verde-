@@ -49,7 +49,7 @@ function ep_listar_empresas(
 
     [$onde, $parametros] = ep_filtros_empresas($pesquisa, $empresaId);
     $sql = 'SELECT e.`empresa_id`, e.`nome_fantasia`, e.`CNPJ`,
-                   e.`razão_social`, e.`contato_nome`, e.`descricao`
+                   e.`razão_social`, e.`contato_nome`, e.`descricao`, e.`status_cadastro`
             FROM `Empresas_Parceiras` e'
         . $onde
         . ' ORDER BY e.`empresa_id` DESC LIMIT :limite OFFSET :inicio';

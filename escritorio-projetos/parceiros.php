@@ -104,6 +104,9 @@ function ep_url_parceiros(int $pagina, string $pesquisa): string
                             <p class="flex text-center w-full justify-center items-center semibold text-gray">Nenhum parceiro encontrado.</p>
                         <?php else: ?>
                             <?php foreach ($parceiros as $parceiro): ?>
+                                <?php if ($parceiro['status_cadastro'] === 'pendente' || $parceiro['status_cadastro'] === 'rejeitado'):
+                                    continue;
+                                endif; ?>
                                 <article class="flex flex-row p-8 parceiros-container observado-me cima justify-between">
                                     <div class="flex flex-row w-full justify-between">
                                         <div class="flex flex-col h-full items-between">
