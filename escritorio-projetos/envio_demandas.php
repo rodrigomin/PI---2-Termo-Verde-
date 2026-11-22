@@ -96,16 +96,16 @@ function ep_data_envio_tabela($data): string
                 <h2>Envio de Demandas</h2>
 
                 <?php if ($erroPagina !== ''): ?>
-                    <p role="alert"><?= ep_e($erroPagina) ?></p>
+                    <div class="error"><p role="alert"><?= ep_e($erroPagina) ?></p></div>
                 <?php else: ?>
                     <?php if ($mensagem !== ''): ?>
-                        <p role="status"><?= ep_e($mensagem) ?></p>
+                        <div class="success"><p role="status"><?= ep_e($mensagem) ?></p></div>
                     <?php endif; ?>
                     <?php if ($erroEnvio !== ''): ?>
-                        <p role="alert"><?= ep_e($erroEnvio) ?></p>
+                        <div class="error"><p role="alert"><?= ep_e($erroEnvio) ?></p></div>
                     <?php endif; ?>
                     <?php if ($erroFiltro !== ''): ?>
-                        <p role="alert"><?= ep_e($erroFiltro) ?></p>
+                        <div class="error"><p role="alert"><?= ep_e($erroFiltro) ?></p></div>
                     <?php endif; ?>
 
                     <section class="filter-section">

@@ -58,7 +58,7 @@ $destino = $_SESSION['destino'] ?? 'index.php';
                     <li class="<?= $paginaAtual === 'aprovacao_de_parceiros.php' ? 'selected' : '' ?>">
                         <button id='aprovacao-parceiros' class='interactive flex flex-row items-center w-full semibold' style='gap: 10px; color: #B71111;'>
                                 <img class='icon' src='./src/public/svgs/square-check-solid-full.svg' alt='Aprovação de Parceiros' style='aspect-ratio: 1/1;'>
-                                <p>Aprovação</p> 
+                                <p style="font-size: medium">Aprovação</p> 
                         </button>
                     </li>
                 </a>

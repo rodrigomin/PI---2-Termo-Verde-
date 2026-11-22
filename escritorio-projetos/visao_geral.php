@@ -164,7 +164,7 @@ function ep_data_painel($data): string
                                 <section class='status-d bg-1 container-grid esq observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Status das Demandas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
                                     <select name='filtro-status' id='filtro-status'>
                                         <option value='ultimo-mes' selected> Último Mês </option>
@@ -213,7 +213,7 @@ function ep_data_painel($data): string
                                     <div class='title-kpi'>
                                         <div class="flex flex-row">
                                             <h3>Demandas em Curso</h3>
-                                            <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                         </div>
 
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 25px; height: 25px">
@@ -230,7 +230,7 @@ function ep_data_painel($data): string
                                         </div>
                                     
                                         <div class="flex flex-col justify-center">
-                                            <p class="bold title"><?= ep_percentual_painel($indicadores['percentual_execucao']) ?></p>
+                                            <p class="bold title"><span class="kpi" id="percent"><?= (float) str_replace("%", "", ep_percentual_painel($indicadores['percentual_execucao'])) ?></span>%</p>
                                             <p class="subtitle">
                                                 <?= ep_numero_painel($indicadores['execucao']) ?> das
                                                 <?= ep_numero_painel($indicadores['total']) ?> demandas
@@ -243,45 +243,51 @@ function ep_data_painel($data): string
                                 <section class='deman-cadastr bg-1 container-grid cima observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Demandas Cadastradas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
 
                                     <div class="line-separator-w"></div>
 
-                                    <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title kpi"><?= ep_numero_painel($indicadores['total']) ?></span> <br> demandas cadastradas</p>
+                                    <div class="flex items-center justify-center text-primary">
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi"><?= ep_numero_painel($indicadores['total']) ?></span> <br> Demandas cadastradas</p>
                                     </div>
                                 </section>
 
                                 <section class='emp-cadastr bg-1 container-grid items-center dir observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Empresas Cadastradas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
                                     <div class="line-separator-w"></div>
-                                    <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title kpi" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> empresas cadastradas</p>
+                                    <div class="flex items-center justify-center text-primary">
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> Empresas cadastradas</p>
                                     </div>
                                 </section>
 
                                 <section class='triagem bg-1 container-grid esq observado-me'>
-                                    <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['triagem']); ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas em triagem </span>
+                                    <div class='flex h-full text-primary' style="padding: 0 25px;">
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                                <span class="kpi"><?= ep_numero_painel($indicadores['triagem']); ?> </span>
+                                                <span class='semibold subtitle text-center'> Demandas em triagem </span>
+                                        </div>
                                     </div>
                                 </section>
 
                                 <section class='execucao bg-1 container-grid cima observado-me'>
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['execucao']) ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas em execução </span>
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                            <span class="kpi"><?= ep_numero_painel($indicadores['execucao']) ?></span>
+                                            <span class='semibold subtitle text-center'> Demandas em execução </span>
+                                        </div>
                                     </div>
                                 </section>
 
                                 <section class="submetidas bg-1 container-grid dir observado-me">
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['submetidas']) ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas submetidas </span>
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                            <span class="kpi"><?= ep_numero_painel($indicadores['submetidas']) ?></span> 
+                                            <span class='semibold subtitle text-center'> Demandas submetidas </span>
+                                        </div>
                                     </div>
                                 </section>
 
@@ -293,7 +299,7 @@ function ep_data_painel($data): string
                     <section class='p-common'>
                         <h2 class="title text-primary">Situação das Demandas Enviadas ao CEPE</h2>
                         <?php if ($erroFiltro !== ''): ?>
-                            <p role="alert"><?= ep_e($erroFiltro) ?></p>
+                            <div class="error"><p role="alert"><?= ep_e($erroFiltro) ?></p></div>
                         <?php endif; ?>
 
                         <form action="visao_geral.php" method="get" style="margin-top: 25px;">

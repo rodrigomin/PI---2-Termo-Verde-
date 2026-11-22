@@ -17,12 +17,6 @@
     transition: all ease-in-out 0.3s;
 }
 
-
-.error {
-    animation: 'error' 1s ease-in-out forwards;
-    color: #ff4848;
-}
-
 .motivo {
     margin-top: 10px;
     border: none;
@@ -34,22 +28,4 @@
 
 .motivo:focus {
     border-bottom: 2px solid #ff4848;
-}
-
-@keyframes error {
-    0% {
-        transform: translateX(-2px);
-    }
-    25% {
-        transform: translateX(2px);
-    }
-    50% {
-        transform: translateX(-2px);
-    }
-    75% {
-        transform: translateX(2px);
-    }
-    100% {
-        transform: translateX(0px);
-    }
 }

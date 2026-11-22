@@ -153,38 +153,3 @@ new Chart(semiCircle, {
         }
     }
 }); 
-
-const demandasCadastradas = document.getElementById('demandasCadastradas');
-
-const kpis = document.querySelectorAll('.kpi')
-
-kpis.forEach((kpi) => {
-    if (kpi && !kpi.classList.contains('show')) {
-        const final = kpi.innerText;
-        let inicial = 0;
-
-        const tempoMinimo = 1;
-        const tempoMaximo = 1000;
-
-        function atualizarContador() {
-            let atual = Number(inicial);
-
-            if (atual < final) {
-                inicial += 1;
-                kpi.innerText = atual + 1;
-
-                let progresso = atual / final; 
-
-                let tempo = tempoMinimo + (tempoMaximo - tempoMinimo) * (progresso ** 2); 
-
-                //console.log(`Valor: ${atual} | Próximo passo em: ${tempo.toFixed(0)}ms`);
-
-                setTimeout(atualizarContador, tempo);
-            }
-        }
-
-        // Inicia o processo
-        atualizarContador();
-    }
-})
-
