@@ -9,6 +9,8 @@ $pesquisa = '';
 $filtroStatus = '';
 $statusDisponiveis = [];
 $totalDemandas = 0;
+$demandasEmExecucao = 0;
+$demandasConcluidas = 0;
 $propostas = [];
 
 try {
@@ -39,6 +41,8 @@ try {
             }
 
             $totalDemandas = ep_total_propostas_parceiro($empresaId);
+            $demandasEmExecucao = ep_total_propostas_filtradas_parceiro($empresaId, 'Em Execução');
+            $demandasConcluidas = ep_total_propostas_filtradas_parceiro($empresaId, 'Concluído');
             $propostas = ep_listar_propostas_parceiro($empresaId, $pesquisa, $filtroStatus);
         }
     }
@@ -90,14 +94,9 @@ function ep_data_proposta_parceiro($data): string
                     <p class="subtitle light">CNPJ: <?= ep_e($parceiro['CNPJ'] ?: 'Não informado')?></p>
                 </header>
 
-                <hr>
+                <div class="line-separator-w" style="margin-bottom: 20px"></div>
                 
                 <?php include_once __DIR__ . '/components/modal_escopo.php' ?>
-                
-                <section class="flex flex-col" style="margin: 20px 0; gap: 12px">
-                    <h3 class="text-primary semibold subtitle">Razão Social</h3>
-                    <p class="text-lg"> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Enim fugiat laudantium aliquid odit harum repellendus.</p>
-                </section>
             
                 <section class="flex flex-col" style="gap: 5px">
                     <h3 class="text-primary semibold subtitle" style="margin-bottom: 12px;">Contato</h3>
@@ -107,21 +106,40 @@ function ep_data_proposta_parceiro($data): string
                 </section>
 
                  <section aria-label="Indicadores do parceiro" style="padding: 50px 0; padding-bottom: 0" class="flex items-center justify-between w-full h-full text-primary container-grid observado-me">
-                    <?php for ($i = 0; $i < 3; $i++): ?>
-                        <article class="bg-2 flex flex-col justify-between rounded-xl p-6" style="max-width: 20%; gap: 20px">
-                            <div class="text-secondary flex flex-row title-kpi">
+                        <article class="flex flex-col p-6" style="max-width: 20%; gap: 20px">
+                            <div class="flex flex-row title-kpi">
                                 <h3>Demandas Cadastradas</h3>
-                                <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Demandas Cadastradas'>
                             </div>
                             <div class="flex items-center justify-center w-full h-full text-center">
-                                <p class="subtitle semibold flex flex-row" style="width: 70%; gap:20px"><span class="title bold"><?= (int) $totalDemandas ?></span> demandas cadastradas</p>
+                                <p class="subtitle semibold" style="display: flex; align-items: center; justify-content: center; width: 100%; margin: 0; gap: 20px;">
+                                    <span class="title bold kpi" style="text-align: center;"><?= (int) $totalDemandas ?></span>
+                                </p>
                             </div>
                         </article>
-                    <?php endfor; ?>
+                        <article class="flex flex-col p-6" style="max-width: 20%; gap: 20px">
+                            <div class="flex flex-row title-kpi">
+                                <h3>Demandas em Execução</h3>
+                            </div>
+                            <div class="flex items-center justify-center w-full h-full text-center">
+                                <p class="subtitle semibold" style="display: flex; align-items: center; justify-content: center; width: 100%; margin: 0; gap: 20px;">
+                                    <span class="title bold kpi" style="text-align: center;"><?= (int) $demandasEmExecucao ?></span>
+                                </p>
+                            </div>
+                        </article>
+                        <article class="flex flex-col p-6" style="max-width: 20%; gap: 20px">
+                            <div class="flex flex-row title-kpi">
+                                <h3>Demandas Concluídas</h3>
+                            </div>
+                            <div class="flex items-center justify-center w-full h-full text-center">
+                                <p class="subtitle semibold" style="display: flex; align-items: center; justify-content: center; width: 100%; margin: 0; gap: 20px;">
+                                    <span class="title bold kpi" style="text-align: center;"><?= (int) $demandasConcluidas ?></span>
+                                </p>
+                            </div>
+                        </article>
                 </section>
                 
                 <?php if ($erroPagina !== ''): ?>
-                    <!--<p role="alert"><?= ep_e($erroPagina) ?></p>-->
+                    <div class="error"><p role="alert"><?= ep_e($erroPagina) ?></p></div>
                 <?php else: ?>
                 
                 <?php endif; ?>
@@ -212,7 +230,7 @@ function ep_data_proposta_parceiro($data): string
                                         ], '', '&', PHP_QUERY_RFC3986)) ?>">Documentos</a>
                                     </td>
                                     <td colspan="2" class="interactive p-6" style="border-radius: 0 10px 10px 0;">
-                                        <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>>
+                                        <?php if (ep_localizar_arquivo_escopo($proposta['escopo'] ?? null) !== null): ?>
                                             <a class="button2" id='ver-escopo' href="ver_escopo.php?proposta_id=<?= (int) $proposta['proposta_id'] ?>">Ver Escopo</a>
                                         <?php else: ?>
                                             Escopo indisponível

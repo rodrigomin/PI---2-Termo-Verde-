@@ -87,17 +87,16 @@ try {
                 <section class="card">
                     
                     <?php if ($erroPagina !== ''): ?>
-                        <p role="alert"><?= ep_e($erroPagina) ?></p>
+                        <div class="error"><p role="alert"><?= ep_e($erroPagina) ?></p></div>
                     <?php elseif (!$podeCadastrar): ?>
-                        <p role="alert">Seu usuário precisa estar vinculado a uma empresa para cadastrar demandas.</p>
+                        <div class="error"><p role="alert">Seu usuário precisa estar vinculado a uma empresa para cadastrar demandas.</p></div>
                     <?php else: ?>
                         <?php if ($mensagemSucesso !== ''): ?>
-                            <p role="status"><?= ep_e($mensagemSucesso) ?></p>
-                            <p><a href="visao_geral.php">Ver demandas na Visão Geral</a></p>
+                            <div class="success"><p role="status"><?= ep_e($mensagemSucesso) ?></p></div>
                         <?php endif; ?>
                         
                         <?php if ($erroCadastro !== ''): ?>
-                            <p role="alert"><?= ep_e($erroCadastro) ?></p>
+                            <div class="error"><p role="alert"><?= ep_e($erroCadastro) ?></p></div>
                         <?php endif; ?>
                         
                         <form action="cadastro_demanda.php" method="post" enctype="multipart/form-data">

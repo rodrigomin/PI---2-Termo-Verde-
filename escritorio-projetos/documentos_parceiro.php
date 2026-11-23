@@ -152,24 +152,8 @@ function ep_url_pagina_documentos(
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (empty($convenios)): ?>
-                                    <tr style="height: 100px; background-color: #F2F2F2" class="rounded-xl">
-                                        <td colspan='1' style="text-align: left; align-items: start">
-                                            <p class="bold">N° Contrato</p>
-                                            <p class="text-2xl" style="color: red">Submetida</p>
-                                        </td>
-                                        <td colspan='1' class="bold">12/08/2026</td>
-                                        <td colspan='1' class="bold">02/05/2028</td>
-                                        <td colspan='1'>
-                                            <div class="button2 flex interactive flex-row items-center justify-center doc-btn" style="gap: 6px">
-                                                <svg width='25' height='25' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path fill="rgb(183, 17, 17)" d="M128 96C110.3 96 96 110.3 96 128L96 224C96 241.7 110.3 256 128 256C145.7 256 160 241.7 160 224L160 160L224 160C241.7 160 256 145.7 256 128C256 110.3 241.7 96 224 96L128 96zM160 416C160 398.3 145.7 384 128 384C110.3 384 96 398.3 96 416L96 512C96 529.7 110.3 544 128 544L224 544C241.7 544 256 529.7 256 512C256 494.3 241.7 480 224 480L160 480L160 416zM416 96C398.3 96 384 110.3 384 128C384 145.7 398.3 160 416 160L480 160L480 224C480 241.7 494.3 256 512 256C529.7 256 544 241.7 544 224L544 128C544 110.3 529.7 96 512 96L416 96zM544 416C544 398.3 529.7 384 512 384C494.3 384 480 398.3 480 416L480 480L416 480C398.3 480 384 494.3 384 512C384 529.7 398.3 544 416 544L512 544C529.7 544 544 529.7 544 512L544 416z"/></svg>
-                                                <a>Abrir Arquivo</a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <!--
-                                    <tr><td colspan="4">Nenhum convênio disponível para exibição.</td></tr>
-                                    -->
+                                <?php if (empty($convenios)): ?>                                    
+                                    <tr><td colspan="4" style="color: red">Nenhum convênio disponível para exibição.</td></tr>
                                 <?php else: ?>
                                     <?php foreach ($convenios as $convenio): ?>
                                         <tr style="height: 100px; background-color: #F2F2F2" class="rounded-xl">
@@ -202,7 +186,7 @@ function ep_url_pagina_documentos(
                         <h3 id="titulo-acompanhamento" class="title">Arquivos de Acompanhamento</h3>
 
                         <?php if ($erroPesquisa !== ''): ?>
-                            <p role="alert"><?= ep_e($erroPesquisa) ?></p>
+                            <div class="error"><p role="alert"><?= ep_e($erroPesquisa) ?></p></div>
                         <?php endif; ?>
 
                         <form action="documentos_parceiro.php" method="get">

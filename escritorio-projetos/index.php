@@ -109,7 +109,7 @@ try {
                     <?php endif; ?>
 
                     <?php if ($erroLogin !== ''): ?>
-                        <p role="alert" style="color: #b30000; font-weight: 500; text-align: center; font-size: 0.9rem;"><?= ep_e($erroLogin) ?></p>
+                        <div class="error"><p role="alert" style="color: #b30000; font-weight: 500; text-align: center; font-size: 0.9rem;"><?= ep_e($erroLogin) ?></p></div>
                     <?php endif; ?>
 
                     <form action="index.php" method="post" class="flex flex-col w-full" style="gap: 25px">

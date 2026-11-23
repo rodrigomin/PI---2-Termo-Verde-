@@ -98,14 +98,13 @@ try {
                     <h2 class="title">Editar Parceiro</h2>
 
                     <?php if ($erroPagina !== ''): ?>
-                        <p role="alert"><?= ep_e($erroPagina) ?></p>
+                        <div class="error"><p role="alert"><?= ep_e($erroPagina) ?></p></div>
                     <?php else: ?>
                         <?php if ($mensagemSucesso !== ''): ?>
-                            <p role="status"><?= ep_e($mensagemSucesso) ?></p>
-                            <p><a href="sobre_parceiro.php?id=<?= (int) $empresaId ?>">Ver dados do parceiro</a></p>
+                            <div class="success"><p role="status"><?= ep_e($mensagemSucesso) ?></p></div>
                         <?php endif; ?>
                         <?php if ($erroEdicao !== ''): ?>
-                            <p role="alert"><?= ep_e($erroEdicao) ?></p>
+                            <div class="error"><p role="alert"><?= ep_e($erroEdicao) ?></p></div>
                         <?php endif; ?>
                     <div style="border: solid 3px #D9D9D9; padding: 0 35px; margin-top: 25px; box-sizing: border-box" class="rounded-lg relative">
                         <form action="editar_parceiro.php?id=<?= (int) $empresaId ?>" method="post" class="flex flex-col" style="margin: 50px 0; gap: 15px">

@@ -95,11 +95,11 @@
 }
 
 .interactive:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
 }
 
 .interactive:active {
-    transform: scale(0.95);
+    transform: scale(0.99);
 }
 
 
@@ -220,12 +220,9 @@ button {
 .line-separator-w {
     width: 100%;
     height: 3px;
+    margin: 0.5rem 0;
     background-color: var(--thirdiary-bg-color);
 }
-
-
-
-
 
 .text-red {
     color: #B71111;
@@ -427,4 +424,72 @@ td {
 a {
     text-decoration: none;
     white-space: nowrap;
+}
+
+
+
+.error {
+    margin-bottom: 24px;
+    animation: 'error' 1s ease-in-out forwards;
+    color: #ff4848;
+    border: solid #ff4848 2px;
+    padding: 1rem;
+    background-color: #ffefef;
+    text-align: center;
+    border-radius: 0.5rem;
+    background-color: #feecec;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 3px 0 rgba(255, 104, 104, 0.5),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 0 20px 10px rgba(253, 156, 156, 0.071);
+    position: relative;
+    padding: 1.5rem 2rem;
+    transition: all ease-in-out 0.3s;
+}
+.error p {
+    color: #ff4848 !important;
+}
+
+.success {
+    margin-bottom: 24px;
+    animation: 'error' 1s ease-in-out forwards;
+    color: #53f568;
+    border: solid rgb(48, 144, 77) 2px;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    background-color: #83fc93;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 3px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(181, 228, 188, 0.9),
+      inset 0 0 20px 10px rgba(137, 247, 144, 0.703);
+    position: relative;
+    padding: 1.5rem 2rem;
+    transition: all ease-in-out 0.3s;
+}
+.success p {
+    color: white !important;
+}
+
+
+
+
+@keyframes error {
+    0% {
+        transform: translateX(-2px);
+    }
+    25% {
+        transform: translateX(2px);
+    }
+    50% {
+        transform: translateX(-2px);
+    }
+    75% {
+        transform: translateX(2px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
 }

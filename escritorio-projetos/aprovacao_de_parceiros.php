@@ -126,10 +126,10 @@ try {
                 </div>
                 <div class="line-separator-w" style="margin: 15px 0;"></div>
                 <?php if ($erro !== ''): ?>
-                    <p role="alert"><?= ep_e($erro) ?></p>
+                    <div class="error"><p role="alert"><?= ep_e($erro) ?></p></div>
                 <?php endif; ?>
                 <?php if ($mensagem !== ''): ?>
-                    <div class="green-card"><p role="status"><?= ep_e($mensagem) ?></p></div>
+                    <div class="success"><p role="status"><?= ep_e($mensagem) ?></p></div>
                 <?php endif; ?>
                 
                 <?php if ($pendentes === []): ?>

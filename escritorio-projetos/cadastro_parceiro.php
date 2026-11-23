@@ -60,7 +60,7 @@ try {
 } catch (Throwable $erro) {
     error_log('Erro no Cadastro de Parceiros: ' . $erro->getMessage());
     http_response_code(503);
-    $erroPagina = 'Não foi possível acessar o cadastro de parceiros. Verifique o MySQL no XAMPP.';
+    $erroPagina = $erro->getMessage(); //'Não foi possível acessar o cadastro de parceiros. Verifique o MySQL no XAMPP.';
 }
 ?>
 <!DOCTYPE html>
@@ -94,9 +94,22 @@ try {
                 </nav>
             
                 <section class="card">
+
+                    <?php if ($erroPagina !== ''): ?>
+                        <div class="error"><p role="alert"><?= ep_e($erroPagina) ?></p></div>
+                    <?php elseif (!$podeCadastrar): ?>
+                        <div class="error"><p role="alert">Seu usuário deve ter cargo de administrador para adicionar novos parceiros.</p></div>
+                    <?php else: ?>
+                        <?php if ($mensagemSucesso !== ''): ?>
+                            <div class="success"><p role="status"><?= ep_e($mensagemSucesso) ?></p></div>
+                        <?php endif; ?>
+                        
+                        <?php if ($erroCadastro !== ''): ?>
+                            <div class="error"><p role="alert"><?= ep_e($erroCadastro) ?></p></div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <form action="cadastro_parceiro.php" method="post">
                         <input type="hidden" name="csrf_token" value="<?= ep_e($tokenCsrf ?? '') ?>">
-
                         <div>
                             <label for="nome_empresa">Nome da Empresa</label>
                             <input type="text" id="nome_empresa" name="nome_empresa" maxlength="150" required>
@@ -129,6 +142,7 @@ try {
                             <button class="interactive" type="submit">Cadastrar Parceiro</button>
                         </div>
                     </form>
+                    
                 </section>
             </div>
         </main>

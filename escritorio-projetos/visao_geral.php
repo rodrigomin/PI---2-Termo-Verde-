@@ -10,7 +10,7 @@ $statusDisponiveis = [];
 $demandas = [];
 $pesquisa = '';
 $filtroStatus = '';
-$paginaAtual = 1;
+$paginaDemandas = 1;
 $totalPaginas = 0;
 $totalResultados = 0;
 $empresasCadastradas = 0;
@@ -37,7 +37,7 @@ try {
 
     $paginaInformada = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
     if ($paginaInformada !== false && $paginaInformada !== null && $paginaInformada > 0) {
-        $paginaAtual = $paginaInformada;
+        $paginaDemandas = $paginaInformada;
     }
 
     $indicadores = ep_indicadores_visao_geral($empresaId);
@@ -54,16 +54,16 @@ try {
     $porPagina = 8;
     $totalPaginas = (int) ceil($totalResultados / $porPagina);
     if ($totalPaginas > 0) {
-        $paginaAtual = min($paginaAtual, $totalPaginas);
+        $paginaDemandas = min($paginaDemandas, $totalPaginas);
     } else {
-        $paginaAtual = 1;
+        $paginaDemandas = 1;
     }
 
     $demandas = ep_listar_demandas_visao_geral(
         $pesquisa,
         $filtroStatus,
         $empresaId,
-        $paginaAtual,
+        $paginaDemandas,
         $porPagina
     );
 } catch (Throwable $erro) {
@@ -164,7 +164,7 @@ function ep_data_painel($data): string
                                 <section class='status-d bg-1 container-grid esq observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Status das Demandas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
                                     <select name='filtro-status' id='filtro-status'>
                                         <option value='ultimo-mes' selected> Último Mês </option>
@@ -213,7 +213,7 @@ function ep_data_painel($data): string
                                     <div class='title-kpi'>
                                         <div class="flex flex-row">
                                             <h3>Demandas em Curso</h3>
-                                            <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                         </div>
 
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" style="width: 25px; height: 25px">
@@ -230,7 +230,7 @@ function ep_data_painel($data): string
                                         </div>
                                     
                                         <div class="flex flex-col justify-center">
-                                            <p class="bold title"><?= ep_percentual_painel($indicadores['percentual_execucao']) ?></p>
+                                            <p class="bold title"><span class="kpi" id="percent"><?= (float) str_replace("%", "", ep_percentual_painel($indicadores['percentual_execucao'])) ?></span>%</p>
                                             <p class="subtitle">
                                                 <?= ep_numero_painel($indicadores['execucao']) ?> das
                                                 <?= ep_numero_painel($indicadores['total']) ?> demandas
@@ -243,45 +243,51 @@ function ep_data_painel($data): string
                                 <section class='deman-cadastr bg-1 container-grid cima observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Demandas Cadastradas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
 
                                     <div class="line-separator-w"></div>
 
-                                    <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title kpi"><?= ep_numero_painel($indicadores['total']) ?></span> <br> demandas cadastradas</p>
+                                    <div class="flex items-center justify-center text-primary">
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi"><?= ep_numero_painel($indicadores['total']) ?></span> <br> Demandas cadastradas</p>
                                     </div>
                                 </section>
 
                                 <section class='emp-cadastr bg-1 container-grid items-center dir observado-me'>
                                     <div class='title-kpi'>
                                         <h3>Empresas Cadastradas</h3>
-                                        <img class='interactive' src='./src/public/svgs/circle-info-solid-full.svg' alt='Status das Demandas'>
+
                                     </div>
                                     <div class="line-separator-w"></div>
-                                    <div class="flex items-center justify-center w-full h-full text-primary">
-                                        <p class='text-thirdiary light text-center'><span class="bold title kpi" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> empresas cadastradas</p>
+                                    <div class="flex items-center justify-center text-primary">
+                                        <p class='text-thirdiary light text-center'><span class="bold title kpi" id='empresasCadastradas'><?= ep_numero_painel($empresasCadastradas) ?></span> <br> Empresas cadastradas</p>
                                     </div>
                                 </section>
 
                                 <section class='triagem bg-1 container-grid esq observado-me'>
-                                    <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['triagem']); ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas em triagem </span>
+                                    <div class='flex h-full text-primary' style="padding: 0 25px;">
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                                <span class="kpi"><?= ep_numero_painel($indicadores['triagem']); ?> </span>
+                                                <span class='semibold subtitle text-center'> Demandas em triagem </span>
+                                        </div>
                                     </div>
                                 </section>
 
                                 <section class='execucao bg-1 container-grid cima observado-me'>
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['execucao']) ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas em execução </span>
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                            <span class="kpi"><?= ep_numero_painel($indicadores['execucao']) ?></span>
+                                            <span class='semibold subtitle text-center'> Demandas em execução </span>
+                                        </div>
                                     </div>
                                 </section>
 
                                 <section class="submetidas bg-1 container-grid dir observado-me">
                                     <div class='flex flex-row items-center justify-center h-full text-primary' style="padding: 0 25px; gap: 25px">
-                                        <div style='flex: 1; font-size: 65px' class='bold'><?= ep_numero_painel($indicadores['submetidas']) ?> </div>
-                                        <span class='semibold subtitle text-center kpi'> demandas submetidas </span>
+                                        <div style='flex: 1; font-size: 65px' class='flex flex-col items-center justify-center bold'>
+                                            <span class="kpi"><?= ep_numero_painel($indicadores['submetidas']) ?></span> 
+                                            <span class='semibold subtitle text-center'> Demandas submetidas </span>
+                                        </div>
                                     </div>
                                 </section>
 
@@ -293,7 +299,7 @@ function ep_data_painel($data): string
                     <section class='p-common'>
                         <h2 class="title text-primary">Situação das Demandas Enviadas ao CEPE</h2>
                         <?php if ($erroFiltro !== ''): ?>
-                            <p role="alert"><?= ep_e($erroFiltro) ?></p>
+                            <div class="error"><p role="alert"><?= ep_e($erroFiltro) ?></p></div>
                         <?php endif; ?>
 
                         <form action="visao_geral.php" method="get" style="margin-top: 25px;">
@@ -367,14 +373,13 @@ function ep_data_painel($data): string
                                 <?php endif; ?>
                             </tbody>
                         </table>
-
+                    </section>
                         
-
                         <?php if ($totalPaginas > 1): ?>
                             <nav class="flex flex-row items-center justify-center" aria-label="Paginação das demandas" style="gap: 25px; margin-top: 25px">
-                                <div class="relative flex flex-row p-6 items-center" style="gap: 20px">
-                                <?php if ($paginaAtual > 1): ?>
-                                    <a href="./app/nav.php?<?= ep_e(ep_url_visao_geral($paginaAtual - 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="left: -20%">
+                                <div class="relative flex flex-row p-6 items-center" style="gap: 10px">
+                                <?php if ($paginaDemandas > 1): ?>
+                                    <a href="<?= ep_e(ep_url_visao_geral($paginaDemandas - 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="left: -20%">
                                         <svg style="aspect-ratio: 1/1; width: 35px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                             <path fill="rgb(181, 16, 16)" d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z"/>
                                         </svg>
@@ -382,11 +387,18 @@ function ep_data_painel($data): string
                                 <?php endif; ?>
 
                                 <?php for ($pagina = 1; $pagina <= $totalPaginas; $pagina++): ?>
-                                    <a href="./app/nav.php?<?= ep_e(ep_url_visao_geral($pagina, $pesquisa, $filtroStatus)) ?>" <?= $pagina === $paginaAtual ? 'aria-current="page"' : '' ?> class="flex flex-col items-center text-center subtitle underline"> <?= $pagina ?> </a>
+                                    <?php $isAtiva = ($pagina === $paginaDemandas); ?>
+                                    <a class="flex flex-col items-center justify-center text-center subtitle rounded-lg transition font-semibold"
+                                        style="width: 38px; height: 38px; <?= $isAtiva 
+                                            ? 'background-color: rgb(181, 16, 16); color: #ffffff; border: 1px solid rgb(181, 16, 16); box-shadow: 0 2px 6px rgba(181, 16, 16, 0.3);' 
+                                            : 'background-color: #ffffff; color: #000000; border: 1px solid #d1d5db;' ?>"
+                                        href="<?= ep_e(ep_url_visao_geral($pagina, $pesquisa, $filtroStatus)) ?>"
+                                        <?= $isAtiva ? 'aria-current="page"' : '' ?>
+                                        ><?= $pagina ?></a>
                                 <?php endfor; ?>
 
-                                <?php if ($paginaAtual < $totalPaginas): ?>
-                                    <a href="./app/nav.php?<?= ep_e(ep_url_visao_geral($paginaAtual + 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="right: -20%">
+                                <?php if ($paginaDemandas < $totalPaginas): ?>
+                                    <a href="<?= ep_e(ep_url_visao_geral($paginaDemandas + 1, $pesquisa, $filtroStatus)) ?>" class="flex absolute flex-col items-center interactive" style="right: -20%">
                                         <svg style="aspect-ratio: 1/1; width: 35px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                                             <path fill="rgb(181, 16, 16)" d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"/>
                                         </svg>
@@ -395,7 +407,6 @@ function ep_data_painel($data): string
                                 </div>
                             </nav>
                         <?php endif; ?>
-                    </section>
                 <?php endif; ?>
             </main>
         </div>

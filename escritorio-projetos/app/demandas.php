@@ -256,6 +256,17 @@ function ep_total_propostas_parceiro(int $empresaId): int
     return (int) $consulta->fetchColumn();
 }
 
+/** Total de propostas para um parceiro específico com filtro de status */
+function ep_total_propostas_filtradas_parceiro(int $empresaId, string $status): int
+{
+    $consulta = ep_db()->prepare(
+        'SELECT COUNT(*) FROM `Propostas_Externas`
+        WHERE `empresa_id` = :empresa_id AND `status` = :status'
+    );
+    $consulta->execute(['empresa_id' => $empresaId, 'status' => $status]);
+    return (int) $consulta->fetchColumn();
+}
+
 /** Status reais associados às propostas de um único parceiro. */
 function ep_status_propostas_parceiro(int $empresaId): array
 {
